@@ -93,7 +93,7 @@ const Login: NextPage = () => {
                 className="cursor-pointer"
                 onClick={() => setSelectedCard(selectedCard - 1)}
               >
-                <div className="bg-white text-[#808C92] p-2 rounded-full">
+                <div className="bg-white hover:bg-opacity-70 text-[#808C92] p-2 rounded-full">
                   <svg
                     stroke="currentColor"
                     fill="currentColor"
@@ -113,7 +113,7 @@ const Login: NextPage = () => {
                 className="cursor-pointer"
                 onClick={() => setSelectedCard(selectedCard + 1)}
               >
-                <div className="bg-white text-[#808C92] p-2 rounded-full">
+                <div className="bg-white hover:bg-opacity-70 text-[#808C92] p-2 rounded-full">
                   <svg
                     stroke="currentColor"
                     fill="currentColor"
@@ -167,9 +167,8 @@ const Login: NextPage = () => {
                 } appearance-none border rounded w-full py-2 px-3 focus:outline-none`}
               />
               <span className="text-red-500 text-sm">
-                {errors.email?.type === "required" &&
-                  "Email tidak boleh kosong"}
-                {errors.email?.type === "pattern" && "Email tidak valid"}
+                {errors.email?.type === "required" && "Email wajib diisi"}
+                {errors.email?.type === "pattern" && "Format email salah"}
               </span>
             </div>
             <div className="w-full space-y-2 mb-4">
@@ -228,13 +227,16 @@ const Login: NextPage = () => {
                   )}
                 </span>
               </div>
-              <span className="text-red-500 text-sm">
+              <span className="text-red-500 text-xs">
                 {errors.password?.type === "required" &&
-                  "Password tidak boleh kosong"}
+                  "Kata sandi wajib diisi"}
               </span>
             </div>
             <div className="w-full mb-6">
-              <button className="w-full py-2 bg-primary text-white rounded-lg">
+              <button
+                className="w-full py-2 bg-primary text-white rounded-lg disabled:bg-tertiery disabled:text-gray-400 hover:bg-opacity-70"
+                disabled={errors.email || errors.password ? true : false}
+              >
                 Login
               </button>
             </div>
@@ -242,7 +244,7 @@ const Login: NextPage = () => {
           <div className="w-full mb-6">
             <p className="text-center text-sm text-primaryText">
               Lupa Kata Sandi?{" "}
-              <span className="text-primary font-semibold text-sm cursor-pointer">
+              <span className="text-primary font-semibold text-sm cursor-pointer hover:text-opacity-70">
                 <Link href={"/forgot-password"}>Tekan Disini</Link>
               </span>
             </p>
@@ -257,7 +259,7 @@ const Login: NextPage = () => {
           <div className="w-full">
             <p className="text-primaryText text-center text-sm">
               Belum Punya Akun?{" "}
-              <span className="text-primary font-semibold text-sm cursor-pointer">
+              <span className="text-primary font-semibold text-sm cursor-pointer hover:text-opacity-70">
                 <Link href={"/register-as"}>Daftar Sekarang</Link>
               </span>
             </p>
