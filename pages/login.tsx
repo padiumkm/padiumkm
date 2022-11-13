@@ -161,12 +161,12 @@ const Login: NextPage = () => {
                 })}
                 name="email"
                 type="email"
-                placeholder="john@mail.com"
+                placeholder="john@email.com"
                 className={`${
                   errors.email && "border-red-500"
                 } appearance-none border rounded w-full py-2 px-3 focus:outline-none`}
               />
-              <span className="text-red-500 text-sm">
+              <span className="text-red-500 text-xs">
                 {errors.email?.type === "required" && "Email wajib diisi"}
                 {errors.email?.type === "pattern" && "Format email salah"}
               </span>
