@@ -1,28 +1,8 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
-import { User } from "../lib/slice/sliceProfile";
-import type { RootState } from "../lib/store";
-import { useSelector, useDispatch } from "react-redux";
-import { saveProfile } from "../lib/slice/sliceProfile";
 
 const Home: NextPage = () => {
-  const user = useSelector((state: RootState) => state.ProfileReducer.user);
-  const dispatch = useDispatch();
-
-  const newUser: User = {
-    name: "John Doe",
-    avatar: "",
-    nik: "",
-    position: "",
-    email: "",
-    phone_number: "",
-    office_number: "",
-    total_cart: 0,
-    total_notificaton: 0,
-    has_submit_nps: false,
-  };
-
   return (
     <div className="flex min-h-screen flex-col items-center justify-center py-2">
       <Head>
@@ -48,14 +28,6 @@ const Home: NextPage = () => {
             pages/index.tsx
           </code>
         </p>
-
-        <button
-          className="bg-primary px-4 py-1 rounded-md text-gray hover:bg-opacity-60"
-          onClick={() => dispatch(saveProfile(newUser))}
-        >
-          Coba
-        </button>
-        <p>Name : {user.name}</p>
 
         <div className="mt-6 flex max-w-4xl flex-wrap items-center justify-around sm:w-full">
           <a
