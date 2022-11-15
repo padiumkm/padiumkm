@@ -2,6 +2,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import Footer from "./Footer";
 import Navbar from "./Navbar";
+import Sidebar from "./Sidebar";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const { route } = useRouter();
@@ -23,7 +24,12 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       </Head>
 
       <header className="sticky top-0 z-10 shadow-md">
-        {listNotShowNavbar.includes(route) ? null : <Navbar />}
+        {listNotShowNavbar.includes(route) ? null : (
+          <>
+            <Navbar />
+            <Sidebar />
+          </>
+        )}
       </header>
 
       <main>{children}</main>
