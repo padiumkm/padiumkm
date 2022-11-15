@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
-export interface User {
+type User = {
   avatar: string;
   nik: string;
   position: string;
@@ -14,7 +14,7 @@ export interface User {
   has_submit_nps: boolean;
 }
 
-export interface ProfileState {
+type ProfileState = {
   isLoading: boolean;
   isSuccess: boolean;
   isError: boolean;

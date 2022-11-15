@@ -23,7 +23,7 @@ export const footerList: FooterList[] = [
     list: [
       {
         name: "Tentang PaDi UMKM",
-        link: "/about",
+        link: "https://info.padiumkm.id/",
       },
       {
         name: "Syarat & Ketentuan",

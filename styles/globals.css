@@ -6,6 +6,9 @@
   ol.type-a {
     list-style-type: upper-alpha;
   }
+  ol.type-a > li {
+    font-weight: bold;
+  }
   .custom-list-type-revert {
     list-style: revert;
   }
