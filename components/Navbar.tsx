@@ -1,21 +1,26 @@
 import Image from "next/image";
+import Link from "next/link";
 import SearchBar from "./SearchBar";
+import { Squash as Hamburger } from "hamburger-react";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../lib/store";
+import { toggleSidebar } from "../lib/slice/sliceSidebar";
+import { navigations } from "../data/navigation";
 
 const Navbar = () => {
-  const navigations = [
-    "Mitra PaDi UMKM",
-    "Menjadi Penjual",
-    "Info",
-    "Pusat Bantuan",
-  ];
+  const isOpen = useSelector((state: RootState) => state.SidebarReducer.isOpen);
+  const dispatch = useDispatch();
 
   return (
     <>
-      <nav className="hidden md:flex justify-between h-9 bg-tertiery">
+      <nav className="hidden sm:flex justify-between h-9 bg-tertiery">
         <div className="flex px-[22px] w-full">
           {navigations.map((navigation, index) => (
-            <div className="flex items-center text-xs font-normal text-[#8D8D97] pr-8 cursor-pointer" key={index}>
-              {navigation}
+            <div
+              className="flex items-center text-xs font-normal text-[#8D8D97] pr-8 cursor-pointer"
+              key={index}
+            >
+              <Link href={navigation.link}>{navigation.name}</Link>
             </div>
           ))}
         </div>
@@ -41,33 +46,30 @@ const Navbar = () => {
         </div>
       </nav>
       <div className="w-full flex flex-col bg-white">
-        <div className="flex flex-col sm:flex-row items-center justify-around bg-white py-2 px-[22px] w-full h-full divide-x-0 sm:divide-x divide-[#9FA7BC]">
+        <div className="flex flex-col sm:flex-row items-center justify-around bg-white py-2 pl-[14px] sm:pl-[22px] pr-[22px] w-full h-full divide-x-0 sm:divide-x divide-[#9FA7BC]">
           <div className="flex items-center justify-between w-full space-x-4">
-            <div className="relative block md:hidden">
-              <svg
-                stroke="currentColor"
-                fill="currentColor"
-                strokeWidth="0"
-                viewBox="0 0 512 512"
-                color="#444B55"
-                className="cursor-pointer"
-                height="28"
-                width="28"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path d="M32 96v64h448V96H32zm0 128v64h448v-64H32zm0 128v64h448v-64H32z"></path>
-              </svg>
-            </div>
-            <div className="relative cursor-pointer md:-left-3 w-16 h-8 min-w-max md:w-20 md:h-10">
-              <Image
-                src={"/logo.svg"}
-                width={100}
-                height={100}
-                alt="logo"
-                className="w-full h-full"
+            <div className="relative block sm:hidden">
+              <Hamburger
+                toggle={() => dispatch(toggleSidebar())}
+                toggled={isOpen}
+                size={28}
+                label="Show menu"
               />
             </div>
-            <SearchBar />
+            <div className="relative cursor-pointer md:-left-3 w-16 h-8 min-w-max md:w-20 md:h-10">
+              <Link href={"/"}>
+                <Image
+                  src={"/logo.svg"}
+                  width={100}
+                  height={100}
+                  alt="logo"
+                  className="w-full h-full"
+                />
+              </Link>
+            </div>
+            <div className="relative hidden sm:flex items-center w-full h-10 border-2 text-primaryText rounded-lg px-3 leading-tight">
+              <SearchBar />
+            </div>
             <div className="sm:pr-5 flex items-center justify-center space-x-5">
               <div className="relative cursor-pointer">
                 <svg
@@ -87,13 +89,22 @@ const Navbar = () => {
           </div>
           <div className="flex items-center w-full sm:w-fit">
             <div className="hidden sm:flex sm:flex-row flex-col sm:pl-6 space-y-2 sm:space-y-0 mt-4 sm:mt-0 sm:space-x-5 w-full sm:w-fit">
-              <button className="w-full sm:w-fit h-10 px-6 border border-primary rounded-lg text-primary font-medium hover:bg-primary hover:text-white">
-                Masuk
-              </button>
-              <button className="w-full sm:w-fit h-10 px-6 bg-primary rounded-lg text-white font-medium hover:bg-opacity-70">
-                Daftar
-              </button>
+              <Link href={"/login"}>
+                <button className="w-full sm:w-fit h-10 px-6 border border-primary rounded-lg text-primary font-medium hover:bg-primary hover:text-white">
+                  Masuk
+                </button>
+              </Link>
+              <Link href={"/register-as"}>
+                <button className="w-full sm:w-fit h-10 px-6 bg-primary rounded-lg text-white font-medium hover:bg-opacity-70">
+                  Daftar
+                </button>
+              </Link>
             </div>
+          </div>
+        </div>
+        <div className="relative items-center border-b bg-white sm:hidden">
+          <div className="relative flex items-center h-10 border-2 text-primaryText rounded-lg px-3 my-2 leading-tight mx-[22px]">
+            <SearchBar />
           </div>
         </div>
       </div>
