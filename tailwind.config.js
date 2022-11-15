@@ -10,7 +10,8 @@ module.exports = {
       colors: {
         placeholder: "#949AB5",
         tertiery: "#F1F3F7",
-        primary: "#0092AC",
+        primaryBlue: "#182958",
+        secondaryBlue: "#0092AC",
         secondary: "#F6F9FC",
         whiteBackground: "#E5E5E5",
         primaryText: "#444B55",

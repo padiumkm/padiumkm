@@ -66,7 +66,7 @@ const ForgotPassword: NextPage = () => {
           </div>
           <div className="w-full mb-6">
             <button
-              className="w-full py-2 bg-primary text-white rounded-lg disabled:bg-tertiery disabled:text-gray-400 hover:bg-opacity-70"
+              className="w-full py-2 bg-primaryBlue text-white rounded-lg disabled:bg-tertiery disabled:text-gray-400 hover:bg-secondaryBlue"
               disabled={errors.email ? true : false}
             >
               Reset Kata Sandi
@@ -75,7 +75,7 @@ const ForgotPassword: NextPage = () => {
         </form>
         <div className="pt-5">
           <Link href={"/login"}>
-            <div className="cursor-pointer flex items-center justify-center space-x-3 w-auto hover:opacity-70">
+            <div className="cursor-pointer flex items-center justify-center space-x-3 w-auto group">
               <svg
                 stroke="currentColor"
                 fill="currentColor"
@@ -84,10 +84,13 @@ const ForgotPassword: NextPage = () => {
                 height="1em"
                 width="1em"
                 xmlns="http://www.w3.org/2000/svg"
+                className="text-[#182958] group-hover:text-secondaryBlue"
               >
                 <path d="M257.5 445.1l-22.2 22.2c-9.4 9.4-24.6 9.4-33.9 0L7 273c-9.4-9.4-9.4-24.6 0-33.9L201.4 44.7c9.4-9.4 24.6-9.4 33.9 0l22.2 22.2c9.5 9.5 9.3 25-.4 34.3L136.6 216H424c13.3 0 24 10.7 24 24v32c0 13.3-10.7 24-24 24H136.6l120.5 114.8c9.8 9.3 10 24.8.4 34.3z"></path>
               </svg>
-              <p className="text-primary font-bold">Kembali ke halaman login</p>
+              <p className="text-[#182958] font-bold group-hover:text-secondaryBlue">
+                Kembali ke halaman login
+              </p>
             </div>
           </Link>
         </div>

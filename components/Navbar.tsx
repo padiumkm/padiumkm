@@ -90,12 +90,12 @@ const Navbar = () => {
           <div className="flex items-center w-full sm:w-fit">
             <div className="hidden sm:flex sm:flex-row flex-col sm:pl-6 space-y-2 sm:space-y-0 mt-4 sm:mt-0 sm:space-x-5 w-full sm:w-fit">
               <Link href={"/login"}>
-                <button className="w-full sm:w-fit h-10 px-6 border border-primary rounded-lg text-primary font-medium hover:bg-primary hover:text-white">
+                <button className="w-full sm:w-fit h-10 px-6 border border-primaryBlue rounded-lg text-primary font-medium hover:bg-primaryBlue hover:text-white">
                   Masuk
                 </button>
               </Link>
               <Link href={"/register-as"}>
-                <button className="w-full sm:w-fit h-10 px-6 bg-primary rounded-lg text-white font-medium hover:bg-opacity-70">
+                <button className="w-full sm:w-fit h-10 px-6 bg-primaryBlue rounded-lg text-white font-medium hover:bg-opacity-70">
                   Daftar
                 </button>
               </Link>

@@ -76,7 +76,7 @@ const RegisterAs: NextPage = () => {
               <p className="text-center text-sm text-primaryText">
                 Sudah punya akun PaDi UMKM?{" "}
                 <Link href={"/login"}>
-                  <span className="text-primary font-semibold cursor-pointer hover:opacity-70">
+                  <span className="text-[#182958] font-bold cursor-pointer hover:text-secondaryBlue">
                     Masuk
                   </span>
                 </Link>
@@ -92,7 +92,6 @@ const RegisterAs: NextPage = () => {
               height={100}
               alt="register-as"
               className="relative w-[400px] h-[400px]"
-              priority={true}
             />
           </div>
           <h2 className="text-2xl  font-bold text-center mb-4">

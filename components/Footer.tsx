@@ -60,14 +60,14 @@ const Footer = () => {
             <div className="flex items-center space-x-2 justify-center xl:justify-start">
               {socialMedia.map((item, index) => (
                 <div className="cursor-pointer" key={index}>
-                  <a href={item.link} target="_blank" rel="noreferrer">
+                  <Link href={item.link} target="_blank" rel="noreferrer">
                     <Image
                       src={item.icon}
                       width={24}
                       height={24}
                       alt={item.name}
                     />
-                  </a>
+                  </Link>
                 </div>
               ))}
             </div>

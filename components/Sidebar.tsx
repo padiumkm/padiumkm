@@ -15,19 +15,19 @@ const Sidebar = () => {
       <div className="flex flex-col">
         <div className="flex flex-row justify-between items-center">
           <Link href={"/login"}>
-            <button className="h-10 px-16 border border-primary rounded-lg text-primary font-medium hover:bg-primary hover:text-white">
+            <button className="h-10 px-16 border border-primaryBlue rounded-lg text-primary font-medium hover:bg-primaryBlue hover:text-white">
               Masuk
             </button>
           </Link>
           <Link href={"/register-as"}>
-            <button className="h-10 px-16 bg-primary rounded-lg text-white font-medium hover:bg-opacity-70">
+            <button className="h-10 px-16 bg-primaryBlue rounded-lg text-white font-medium hover:bg-opacity-70">
               Daftar
             </button>
           </Link>
         </div>
         <ul className="mt-4 space-y-2">
           {navigations.map((navigation, index) => (
-            <li className="hover:text-primary" key={index}>
+            <li className="hover:text-primaryBlue" key={index}>
               <Link href={navigation.link}>
                 <span className="font-semibold">{navigation.name}</span>
               </Link>

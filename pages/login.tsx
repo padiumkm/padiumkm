@@ -235,7 +235,7 @@ const Login: NextPage = () => {
             </div>
             <div className="w-full mb-6">
               <button
-                className="w-full py-2 bg-primary text-white rounded-lg disabled:bg-tertiery disabled:text-gray-400 hover:bg-opacity-70"
+                className="w-full py-2 bg-primaryBlue text-white rounded-lg disabled:bg-tertiery disabled:text-gray-400 hover:bg-secondaryBlue"
                 disabled={errors.email || errors.password ? true : false}
               >
                 Login
@@ -245,7 +245,7 @@ const Login: NextPage = () => {
           <div className="w-full mb-6">
             <p className="text-center text-sm text-primaryText">
               Lupa Kata Sandi?{" "}
-              <span className="text-primary font-semibold text-sm cursor-pointer hover:text-opacity-70">
+              <span className="text-primaryBlue font-semibold text-sm cursor-pointer hover:text-secondaryBlue">
                 <Link href={"/forgot-password"}>Tekan Disini</Link>
               </span>
             </p>
@@ -260,7 +260,7 @@ const Login: NextPage = () => {
           <div className="w-full">
             <p className="text-primaryText text-center text-sm">
               Belum Punya Akun?{" "}
-              <span className="text-primary font-semibold text-sm cursor-pointer hover:text-opacity-70">
+              <span className="text-primaryBlue font-semibold text-sm cursor-pointer hover:text-secondaryBlue">
                 <Link href={"/register-as"}>Daftar Sekarang</Link>
               </span>
             </p>
