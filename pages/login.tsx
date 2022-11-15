@@ -51,7 +51,7 @@ const Login: NextPage = () => {
   ];
 
   return (
-    <div className="flex justify-center items-center lg:h-screen bg-whiteBackground">
+    <section className="flex justify-center items-center lg:h-screen bg-whiteBackground">
       <Head>
         <title>Login | PaDi UMKM</title>
       </Head>
@@ -80,6 +80,7 @@ const Login: NextPage = () => {
                 className={`rounded-full p-1 ${
                   index === selectedCard ? "w-6 bg-white" : "bg-gray-200"
                 }`}
+                key={index}
               ></div>
             ))}
           </div>
@@ -266,7 +267,7 @@ const Login: NextPage = () => {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
