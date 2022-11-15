@@ -88,8 +88,8 @@ const RegisterAs: NextPage = () => {
           <div className="flex justify-center items-center">
             <Image
               src={"/register-as.svg"}
-              width={100}
-              height={100}
+              width={500}
+              height={500}
               alt="register-as"
               className="relative w-[400px] h-[400px]"
             />
