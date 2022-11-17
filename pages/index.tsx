@@ -1,10 +1,16 @@
 import type { NextPage } from "next";
+import dynamic from "next/dynamic";
 import Head from "next/head";
 import Image from "next/image";
 
 const Home: NextPage = () => {
+  const SwiperProduct = dynamic(() => import("../components/Swiper/Product"), {
+    ssr: false,
+  });
+  const FAQ = dynamic(() => import("../components/FAQ"));
+
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center py-2">
+    <section className="space-y-10 sm:space-y-16 px-5 lg:px-28 py-6">
       <Head>
         <title>PaDi UMKM</title>
         <link rel="icon" href="/favicon.ico" />
@@ -13,77 +19,95 @@ const Home: NextPage = () => {
           content="Bersama PaDi UMKM, mari tingkatkan pertumbuhan ekonomi UMKM untuk Indonesia yang lebih maju."
         />
       </Head>
-
-      <main className="flex w-full flex-1 flex-col items-center justify-center px-20 text-center">
-        <h1 className="text-6xl font-bold">
-          Welcome to{" "}
-          <a className="text-blue-600" href="https://nextjs.org">
-            Next.js!
-          </a>
-        </h1>
-
-        <p className="mt-3 text-2xl">
-          Get started by editing{" "}
-          <code className="rounded-md bg-gray-100 p-3 font-mono text-lg">
-            pages/index.tsx
-          </code>
-        </p>
-
-        <div className="mt-6 flex max-w-4xl flex-wrap items-center justify-around sm:w-full">
-          <a
-            href="https://nextjs.org/docs"
-            className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Documentation &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Find in-depth information about Next.js features and its API.
-            </p>
-          </a>
-
-          <a
-            href="https://nextjs.org/learn"
-            className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Learn &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Learn about Next.js in an interactive course with quizzes!
-            </p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/canary/examples"
-            className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Examples &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Discover and deploy boilerplate example Next.js projects.
-            </p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Deploy &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
+      <div className="relative w-full h-full">
+        <div className="relative w-full">
+          <div className="aspect-w-4 aspect-h-1 w-full overflow-hidden relative text-sm">
+            <Image
+              src={"/banner.webp"}
+              width={1440}
+              height={360}
+              alt="banner"
+              style={{ objectFit: "cover" }}
+              className="rounded-lg"
+            />
+          </div>
+          <div className="absolute ml-6 mb-1 bottom-3 flex space-x-1">
+            <div className="rounded-full p-1 px-5 bg-gray-100 border"></div>
+            <div className="rounded-full p-1 bg-gray-100 border"></div>
+            <div className="rounded-full p-1 bg-gray-100 border"></div>
+            <div className="rounded-full p-1 bg-gray-100 border"></div>
+            <div className="rounded-full p-1 bg-gray-100 border"></div>
+          </div>
         </div>
-      </main>
-
-      <footer className="flex h-24 w-full items-center justify-center border-t">
-        <a
-          className="flex items-center justify-center gap-2"
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{" "}
-          <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-        </a>
-      </footer>
-    </div>
+      </div>
+      <SwiperProduct />
+      <SwiperProduct />
+      <div className="flex flex-col">
+        <h2 className="text-2xl font-bold mb-6">
+          Keuntungan Bergabung di PaDi UMKM B2B
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="w-full rounded-lg shadow-sm bg-tertiery text-primaryText py-4 space-y-5">
+            <div className="flex items-center justify-center">
+              <div className="relative w-48 h-48">
+                <Image src={"/keuntungan-1.svg"} fill alt="gambar" />
+              </div>
+            </div>
+            <div className="space-y-2 px-4">
+              <h3 className="font-bold text-center">Kemudahan Pembiayaan</h3>
+              <p className="text-sm text-center">
+                UMKM bisa mengajukan permintaan pembiayaan dari BUMN terpercaya,
+                seperti, Bank Mandiri, BRI, Pegadaian & PNM.
+              </p>
+            </div>
+          </div>
+          <div className="w-full rounded-lg shadow-sm bg-tertiery text-primaryText py-4 space-y-5">
+            <div className="flex items-center justify-center">
+              <div className="relative w-48 h-48">
+                <Image src={"/keuntungan-2.svg"} fill alt="gambar" />
+              </div>
+            </div>
+            <div className="space-y-2 px-4">
+              <h3 className="font-bold text-center">Kepastian Pembayaran</h3>
+              <p className="text-sm text-center">
+                Termonitor langsung oleh manajemen dan kementrian BUMN.
+              </p>
+            </div>
+          </div>
+          <div className="w-full rounded-lg shadow-sm bg-tertiery text-primaryText py-4 space-y-5">
+            <div className="flex items-center justify-center">
+              <div className="relative w-48 h-48">
+                <Image src={"/keuntungan-3.svg"} fill alt="gambar" />
+              </div>
+            </div>
+            <div className="space-y-2 px-4">
+              <h3 className="font-bold text-center">
+                Pasar yang Pasti di Perusahaan BUMN
+              </h3>
+              <p className="text-sm text-center">
+                Mendapatkan pelanggan tetap dari perusahaan BUMN.
+              </p>
+            </div>
+          </div>
+          <div className="w-full rounded-lg shadow-sm bg-tertiery text-primaryText py-4 space-y-5">
+            <div className="flex items-center justify-center">
+              <div className="relative w-48 h-48">
+                <Image src={"/keuntungan-4.svg"} fill alt="gambar" />
+              </div>
+            </div>
+            <div className="space-y-2 px-4">
+              <h3 className="font-bold text-center">
+                Saran dan Penilaian Produk
+              </h3>
+              <p className="text-sm text-center">
+                Mendapat masukan langsung untuk meningkatkan kualitas.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <FAQ />
+    </section>
   );
 };
 

@@ -16,7 +16,13 @@ module.exports = {
         whiteBackground: "#E5E5E5",
         primaryText: "#444B55",
       },
+      screens: {
+        xs: "360px",
+      },
     },
   },
-  plugins: [],
+  corePlugins: {
+    aspectRatio: false,
+  },
+  plugins: [require("@tailwindcss/aspect-ratio")],
 };
