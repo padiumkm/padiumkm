@@ -1,10 +1,12 @@
+import dynamic from "next/dynamic";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import Footer from "./Footer";
-import Navbar from "./Navbar";
-import Sidebar from "./Sidebar";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
+  const Navbar = dynamic(() => import("./Navbar"));
+  const Sidebar = dynamic(() => import("./Sidebar"));
+  const Footer = dynamic(() => import("./Footer"));
+
   const { route } = useRouter();
   const listNotShowNavbar = [
     "/login",
