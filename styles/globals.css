@@ -3,6 +3,10 @@
 @tailwind utilities;
 
 @layer components {
+  details > summary.list-none::-webkit-details-marker,
+  details > summary.list-none::marker {
+    display: none;
+  }
   ol.type-a {
     list-style-type: upper-alpha;
   }
@@ -11,5 +15,9 @@
   }
   .custom-list-type-revert {
     list-style: revert;
+  }
+  .number-of-line-1 {
+    -webkit-line-clamp: 1;
+    line-clamp: 1;
   }
 }
