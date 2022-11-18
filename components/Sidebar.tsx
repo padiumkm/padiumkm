@@ -15,12 +15,12 @@ const Sidebar = () => {
       <div className="flex flex-col">
         <div className="flex flex-row justify-between items-center">
           <Link href={"/login"}>
-            <button className="h-10 px-16 border border-primaryBlue rounded-lg text-primary font-medium hover:bg-primaryBlue hover:text-white">
+            <button className="h-10 px-10 xs:px-16 border border-primaryBlue rounded-lg text-primary font-medium hover:bg-primaryBlue hover:text-white">
               Masuk
             </button>
           </Link>
           <Link href={"/register-as"}>
-            <button className="h-10 px-16 bg-primaryBlue rounded-lg text-white font-medium hover:bg-opacity-70">
+            <button className="h-10 px-10 xs:px-16 bg-primaryBlue rounded-lg text-white font-medium hover:bg-opacity-70">
               Daftar
             </button>
           </Link>

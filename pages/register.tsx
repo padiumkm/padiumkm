@@ -12,12 +12,6 @@ type FormValues = {
   phone: number;
 };
 
-type RegistCard = {
-  title: string;
-  description: string;
-  image: string;
-};
-
 const Register: NextPage = () => {
   const {
     register,
