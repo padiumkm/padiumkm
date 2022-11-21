@@ -5,6 +5,7 @@ import Link from "next/link";
 import Modal from "../components/Modal";
 import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
+import Button from "../components/button/Button";
 
 type FormValues = {
   name: string;
@@ -139,14 +140,14 @@ const Register: NextPage = () => {
             </div>
 
             <div className="w-full mb-8">
-              <button
-                className="w-full py-2 bg-primaryBlue text-white rounded-lg disabled:bg-tertiery disabled:text-gray-400 hover:bg-secondaryBlue"
+              <Button
+                primary
                 disabled={
                   errors.name || errors.email || errors.phone ? true : false
                 }
               >
                 Daftar
-              </button>
+              </Button>
             </div>
             <div className="w-full mb-2">
               <p className="text-center text-sm text-primaryText">
@@ -196,6 +197,7 @@ const Register: NextPage = () => {
               width={500}
               height={500}
               className="relative w-[300px] h-[270px]"
+              priority
             />
           </div>
         </div>

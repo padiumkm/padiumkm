@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../lib/store";
 import { toggleSidebar } from "../lib/slice/sliceSidebar";
 import { navigations } from "../data/navigation";
+import Button from "./button/Button";
 
 const Navbar = () => {
   const isOpen = useSelector((state: RootState) => state.SidebarReducer.isOpen);
@@ -90,14 +91,14 @@ const Navbar = () => {
           <div className="flex items-center w-full sm:w-fit">
             <div className="hidden sm:flex sm:flex-row flex-col sm:pl-6 space-y-2 sm:space-y-0 mt-4 sm:mt-0 sm:space-x-5 w-full sm:w-fit">
               <Link href={"/login"}>
-                <button className="w-full sm:w-fit h-10 px-6 border border-primaryBlue rounded-lg text-primary font-medium hover:bg-primaryBlue hover:text-white">
+                <Button size="small" className="sm:w-fit">
                   Masuk
-                </button>
+                </Button>
               </Link>
               <Link href={"/register-as"}>
-                <button className="w-full sm:w-fit h-10 px-6 bg-primaryBlue rounded-lg text-white font-medium hover:bg-opacity-70">
+                <Button primary size="small" className="sm:w-fit">
                   Daftar
-                </button>
+                </Button>
               </Link>
             </div>
           </div>

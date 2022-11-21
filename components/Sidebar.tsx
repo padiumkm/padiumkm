@@ -3,9 +3,11 @@ import Link from "next/link";
 import { useSelector } from "react-redux";
 import { navigations } from "../data/navigation";
 import { RootState } from "../lib/store";
+import Button from "./button/Button";
 
 const Sidebar = () => {
   const isOpen = useSelector((state: RootState) => state.SidebarReducer.isOpen);
+
   return (
     <div
       className={`absolute flex flex-col sm:hidden justify-between min-h-screen w-full bg-white py-4 px-[22px] top-[120px] transition-all duration-500 ${
@@ -15,14 +17,10 @@ const Sidebar = () => {
       <div className="flex flex-col">
         <div className="flex flex-row justify-between items-center">
           <Link href={"/login"}>
-            <button className="h-10 px-10 xs:px-16 border border-primaryBlue rounded-lg text-primary font-medium hover:bg-primaryBlue hover:text-white">
-              Masuk
-            </button>
+            <Button className="px-10 xs:px-16">Masuk</Button>
           </Link>
           <Link href={"/register-as"}>
-            <button className="h-10 px-10 xs:px-16 bg-primaryBlue rounded-lg text-white font-medium hover:bg-opacity-70">
-              Daftar
-            </button>
+            <Button className="px-10 xs:px-16" primary>Daftar</Button>
           </Link>
         </div>
         <ul className="mt-4 space-y-2">

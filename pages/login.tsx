@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
+import Button from "../components/button/Button";
 
 type FormValues = {
   email: string;
@@ -234,12 +235,12 @@ const Login: NextPage = () => {
               </span>
             </div>
             <div className="w-full mb-6">
-              <button
-                className="w-full py-2 bg-primaryBlue text-white rounded-lg disabled:bg-tertiery disabled:text-gray-400 hover:bg-secondaryBlue"
+              <Button
+                primary
                 disabled={errors.email || errors.password ? true : false}
               >
                 Login
-              </button>
+              </Button>
             </div>
           </form>
           <div className="w-full mb-6">
