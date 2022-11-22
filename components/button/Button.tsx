@@ -65,13 +65,13 @@ const Button: React.FC<IButton> = ({
     ? "bg-primaryBlue hover:bg-opacity-70 text-white"
     : "border border-primaryBlue hover:bg-primaryBlue text-primaryText hover:text-white";
 
-  const sizeClass = size === "small" ? "px-6" : "";
+  const sizeClass = size === "small" ? "px-6" : "w-full";
 
   return (
     <button
       onClick={onClick}
       disabled={disabled}
-      className={`w-full py-2 rounded-lg font-semibold disabled:bg-tertiery disabled:text-gray-400 ${mode} ${sizeClass} ${className}`}
+      className={`py-2 rounded-lg font-semibold disabled:bg-tertiery disabled:text-gray-400 ${mode} ${sizeClass} ${className}`}
     >
       {children}
     </button>
