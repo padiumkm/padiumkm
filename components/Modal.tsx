@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { useRouter } from "next/router";
+import Button from "./button/Button";
 
 type Modal = {
   show: boolean;
@@ -33,15 +34,16 @@ const Modal = ({ show, setShow }: Modal) => {
               </div>
             </div>
             <div className="flex justify-center sm:justify-end space-x-4">
-              <button
+              <Button
+                size="small"
+                primary
                 onClick={() => {
                   setShow(false);
                   router.replace("/");
                 }}
-                className="whitespace-nowrap py-2 px-7 border rounded-lg text-white bg-primary hover:bg-opacity-70 text-base font-bold"
               >
                 Kembali ke beranda
-              </button>
+              </Button>
             </div>
           </div>
         </div>
