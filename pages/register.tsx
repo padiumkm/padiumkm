@@ -157,7 +157,7 @@ const Register: NextPage = () => {
             <div className="w-full mb-2">
               <p className="text-center text-sm text-primaryText">
                 Dengan mendaftar, saya menyetujui{" "}
-                <span className="text-primary text-sm cursor-pointer hover:text-opacity-70">
+                <span className="text-blue-400 text-primary text-sm cursor-pointer hover:text-opacity-70">
                   <Link href={"/syarat-dan-ketentuan"}>
                     Syarat dan Ketentuan
                   </Link>
@@ -165,7 +165,7 @@ const Register: NextPage = () => {
               </p>
               <p className="text-center text-sm text-primaryText">
                 serta{" "}
-                <span className="text-primary text-sm cursor-pointer hover:text-opacity-70">
+                <span className="text-blue-400 text-primary text-sm cursor-pointer hover:text-opacity-70">
                   <Link href={"/kebijakan-privasi"}>Kebijakan Privasi</Link>
                 </span>
               </p>
