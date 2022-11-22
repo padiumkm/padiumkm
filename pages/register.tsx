@@ -5,17 +5,12 @@ import Link from "next/link";
 import Modal from "../components/Modal";
 import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
+import Button from "../components/button/Button";
 
 type FormValues = {
   name: string;
   email: string;
   phone: number;
-};
-
-type RegistCard = {
-  title: string;
-  description: string;
-  image: string;
 };
 
 const Register: NextPage = () => {
@@ -145,19 +140,19 @@ const Register: NextPage = () => {
             </div>
 
             <div className="w-full mb-8">
-              <button
-                className="w-full py-2 bg-primary text-white rounded-lg disabled:bg-tertiery disabled:text-gray-400 hover:bg-opacity-70"
+              <Button
+                primary
                 disabled={
                   errors.name || errors.email || errors.phone ? true : false
                 }
               >
                 Daftar
-              </button>
+              </Button>
             </div>
             <div className="w-full mb-2">
               <p className="text-center text-sm text-primaryText">
                 Dengan mendaftar, saya menyetujui{" "}
-                <span className="text-primary text-sm cursor-pointer hover:text-opacity-70">
+                <span className="text-primaryBlue font-semibold text-sm cursor-pointer hover:text-secondaryBlue">
                   <Link href={"/syarat-dan-ketentuan"}>
                     Syarat dan Ketentuan
                   </Link>
@@ -165,7 +160,7 @@ const Register: NextPage = () => {
               </p>
               <p className="text-center text-sm text-primaryText">
                 serta{" "}
-                <span className="text-primary text-sm cursor-pointer hover:text-opacity-70">
+                <span className="text-primaryBlue font-semibold text-sm cursor-pointer hover:text-secondaryBlue">
                   <Link href={"/kebijakan-privasi"}>Kebijakan Privasi</Link>
                 </span>
               </p>
@@ -176,7 +171,7 @@ const Register: NextPage = () => {
             <div className="w-full">
               <p className="text-center text-sm text-primaryText">
                 Sudah punya akun PaDi UMKM?{" "}
-                <span className="text-primary text-sm cursor-pointer hover:text-opacity-70">
+                <span className="text-primaryBlue font-semibold text-sm cursor-pointer hover:text-secondaryBlue">
                   <Link href={"/login"}>Masuk</Link>
                 </span>
               </p>
@@ -202,6 +197,7 @@ const Register: NextPage = () => {
               width={500}
               height={500}
               className="relative w-[300px] h-[270px]"
+              priority
             />
           </div>
         </div>

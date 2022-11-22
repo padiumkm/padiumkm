@@ -38,7 +38,7 @@ const Modal = ({ show, setShow }: Modal) => {
                   setShow(false);
                   router.replace("/");
                 }}
-                className="whitespace-nowrap py-2 px-7 border rounded-lg text-white bg-primary hover:bg-opacity-70 text-base font-bold"
+                className="whitespace-nowrap py-2 px-7 border rounded-lg text-white bg-primaryBlue hover:bg-opacity-70 text-base font-bold"
               >
                 Kembali ke beranda
               </button>
