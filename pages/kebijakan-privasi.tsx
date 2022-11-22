@@ -13,16 +13,19 @@ const KebijakanPrivasi: NextPage = () => {
                 Kebijakan Privasi
             </h1>
             <div className="space-y-3">
-                <div className="text-2x1 text-primaryText">Kebijakan Keamanan Data</div>
+                <h1 className="text-2x1 text-primaryText">Kebijakan Keamanan Data</h1>
                 <div>Kebijakan Keamanan Data Pribadi oleh PaDi UMKM telah sesuai dengan Peraturan Menteri Komunikasi dan Informatika Republik Indonesia Nomor 4 Tahun 2016 tentang Sistem Manajemen Pengamanan Informasi, kebijakan ini mengatur mengenai Pengelolaan, Pengumpulan, Penggunaan, penampilan data pribadi Pemilik Akun (selanjutnya disebut Pengguna).</div>
             </div>
             <div className="space-y-3">
                 <div className="text-2x1 text-primaryText">Ruang Lingkup Kebijakan</div>
                 <div>Ruang Lingkup Kebijakan ini mencakup Data Pribadi Pengguna, yakni:</div>
-                <ul className="ml-4">
+                <ul className="ml-4 list-disc">
                     <li className="custom-list-type-dot">Nama lengkap</li>
                     <li>Alamat pengiriman</li>
                     <li>Alamat email</li>
+                    <li>Nomor Telepon</li>
+                    <li>Informasi transaksi (produk, jumlah, dan tagihan pembayaran)</li>
+                    <li>Informasi perusahaan (NPWP, bank, dan rekening)</li>
                 </ul>
             </div>
         </div>
