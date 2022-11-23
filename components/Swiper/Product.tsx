@@ -2,29 +2,20 @@ import { useEffect, useState } from "react";
 import Swiper from "swiper";
 import { Swiper as SwiperComp, SwiperSlide } from "swiper/react";
 import "swiper/swiper-bundle.css";
-import ProductCard from "../ProductCard";
+import { IProductCard } from "../productCard/IProductCard";
+import ProductCard from "../productCard/ProductCard";
 
-const useWindowSize = () => {
-  const [size, setSize] = useState([0, 0]);
-  useEffect(() => {
-    const updateSize = () => {
-      setSize([window.innerWidth, window.innerHeight]);
-    };
-    window.addEventListener("resize", updateSize);
-    updateSize();
-    return () => window.removeEventListener("resize", updateSize);
-  }, []);
-  return size;
-};
+interface Props {
+  title: string;
+  data: IProductCard[];
+}
 
-const Product = () => {
+const Product: React.FC<Props> = ({ title, data }) => {
   const [swiper, setSwiper] = useState<Swiper>();
   const [swiperState, setSwiperState] = useState({
     isBeginning: true,
     isEnd: false,
   });
-  const [width] = useWindowSize();
-  const ARRAY_LIST: number[] = [1, 2, 3, 4, 5, 6, 7];
 
   return (
     <div className="relative w-full">
@@ -32,7 +23,7 @@ const Product = () => {
         <div className="flex justify-between mb-6">
           <div className="flex items-center justify-between lg:justify-start w-full lg:w-fit">
             <h2 className="text-xl sm:text-2xl font-bold text-primaryText">
-              Bersama UMKM Majukan Negeri
+              {title}
             </h2>
             <div className="flex items-center space-x-3 ml-8 cursor-pointer">
               <span className="sm:text-lg font-bold text-secondaryBlue">
@@ -124,9 +115,19 @@ const Product = () => {
         }}
         spaceBetween={5}
       >
-        {ARRAY_LIST.map((item) => (
-          <SwiperSlide className="p-0.5" key={item}>
-            <ProductCard />
+        {data.map((item, index) => (
+          <SwiperSlide className="p-0.5" key={index}>
+            <ProductCard
+              image={item.image}
+              name={item.name}
+              price={item.price}
+              location={item.location}
+              produkDalamNegeri={item.produkDalamNegeri}
+              tkdn={item.tkdn}
+              review={item.review}
+              rating={item.rating}
+              sold={item.sold}
+            />
           </SwiperSlide>
         ))}
       </SwiperComp>

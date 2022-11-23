@@ -2,12 +2,34 @@ import type { NextPage } from "next";
 import dynamic from "next/dynamic";
 import Head from "next/head";
 import Image from "next/image";
+import { IProductCard } from "../components/productCard/IProductCard";
 
 const Home: NextPage = () => {
   const SwiperProduct = dynamic(() => import("../components/Swiper/Product"), {
     ssr: false,
   });
   const FAQ = dynamic(() => import("../components/FAQ"));
+
+  const products: IProductCard[] = [
+    {
+      name: "Ini Produk",
+      price: 10000,
+      image: "https://picsum.photos/200",
+      location: "Jakarta",
+      produkDalamNegeri: true,
+      tkdn: {
+        name: "TKDN",
+        value: 10,
+      },
+      review: 4,
+      rating: 4,
+      sold: 100,
+    },
+  ];
+
+  for (let i = 0; i < 8; i++) {
+    products[i] = products[0];
+  }
 
   return (
     <section className="space-y-10 sm:space-y-16 px-5 lg:px-28 py-6">
@@ -40,8 +62,8 @@ const Home: NextPage = () => {
           </div>
         </div>
       </div>
-      <SwiperProduct />
-      <SwiperProduct />
+      <SwiperProduct title={"Bersama UMKM Majukan Negeri"} data={products} />
+      <SwiperProduct title={"Promo Operasi Pasar Murah"} data={products} />
       <div className="flex flex-col">
         <h2 className="text-2xl font-bold mb-6">
           Keuntungan Bergabung di PaDi UMKM B2B
