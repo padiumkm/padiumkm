@@ -5,4 +5,7 @@ module.exports = {
     locales: ["id"],
     defaultLocale: "id",
   },
+  images: {
+    domains: ["picsum.photos"],
+  },
 };
