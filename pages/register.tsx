@@ -2,10 +2,11 @@ import { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
-import Modal from "../components/Modal";
+import Modal from "../components/modal/Modal";
 import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import Button from "../components/button/Button";
+import { useRouter } from "next/router";
 
 type FormValues = {
   name: string;
@@ -20,6 +21,8 @@ const Register: NextPage = () => {
     handleSubmit,
   } = useForm<FormValues>();
 
+  const router = useRouter();
+
   const onSubmit: SubmitHandler<FormValues> = (data) => {
     if (!errors.name && !errors.email && !errors.phone) {
       console.log(data);
@@ -27,13 +30,31 @@ const Register: NextPage = () => {
     }
   };
   const [show, setShow] = useState(false);
+
   return (
     <section className="flex justify-center items-center lg:h-screen bg-whiteBackground relative">
       <Head>
         <title>Register | PaDi UMKM</title>
       </Head>
       <div className="absolute z-30">
-        <Modal show={show} setShow={setShow} />
+        <Modal
+          show={show}
+          header={"Konfirmasi Email Anda"}
+          body={
+            "Terima kasih telah melakukan registrasi, cek email anda untuk melakukan aktivitas akun PaDi UMKM"
+          }
+          icon={"success.svg"}
+          button={[
+            {
+              text: "Kembali ke Beranda",
+              onClick: () => {
+                setShow(false);
+                router.replace("/");
+              },
+              primary: true,
+            },
+          ]}
+        />
       </div>
       {show ? (
         <div className="absolute bg-[#808080] min-h-screen w-full z-20 bg-opacity-80" />
