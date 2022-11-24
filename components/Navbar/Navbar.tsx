@@ -1,12 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
-import SearchBar from "./SearchBar";
+import SearchBar from "../SearchBar/SearchBar";
 import { Squash as Hamburger } from "hamburger-react";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../lib/store";
-import { toggleSidebar } from "../lib/slice/sliceSidebar";
-import { navigations } from "../data/navigation";
-import Button from "./button/Button";
+import { RootState } from "../../lib/store";
+import { toggleSidebar } from "../../lib/slice/sliceSidebar";
+import { navigations } from "../../data/navigation";
+import Button from "../button/Button";
 
 const Navbar = () => {
   const isOpen = useSelector((state: RootState) => state.SidebarReducer.isOpen);
@@ -68,9 +68,9 @@ const Navbar = () => {
                 />
               </Link>
             </div>
-            <div className="relative hidden sm:flex items-center w-full h-10 border-2 text-primaryText rounded-lg px-3 leading-tight">
-              <SearchBar />
-            </div>
+            {/* <div className=""> */}
+            <SearchBar />
+            {/* </div> */}
             <div className="sm:pr-5 flex items-center justify-center space-x-5">
               <div className="relative cursor-pointer">
                 <svg
@@ -103,10 +103,8 @@ const Navbar = () => {
             </div>
           </div>
         </div>
-        <div className="relative items-center border-b bg-white sm:hidden">
-          <div className="relative flex items-center h-10 border-2 text-primaryText rounded-lg px-3 my-2 leading-tight mx-[22px]">
-            <SearchBar />
-          </div>
+        <div className="relative items-center border-b bg-white sm:hidden my-2 mx-[22px]">
+          <SearchBar layout="mobile" />
         </div>
       </div>
     </>
