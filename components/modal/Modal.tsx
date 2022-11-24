@@ -7,7 +7,17 @@ const Modal: React.FC<IModal> = ({ show, header, body, icon, button }) => {
     <>
       {show ? (
         <div className="flex flex-col sm:flex-row justify-center items-center md:m-8 space-x-4 bg-white rounded-lg p-6">
-          <div className="relative w-40 h-40 cursor-pointer p-4">
+          <div
+            className={`relative w-40 h-40 p-4 rounded-full ${
+              icon === "success.svg"
+                ? "bg-green-300"
+                : icon === "warning.svg"
+                ? "bg-amber-300"
+                : icon === "error.svg"
+                ? "bg-red-300"
+                : ""
+            }`}
+          >
             <Image
               src={`/${icon}`}
               width={100}
