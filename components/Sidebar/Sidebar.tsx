@@ -1,9 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useSelector } from "react-redux";
-import { navigations } from "../data/navigation";
-import { RootState } from "../lib/store";
-import Button from "./button/Button";
+import { navigations } from "../../data/navigation";
+import { RootState } from "../../lib/store";
+import Button from "../button/Button";
 
 const Sidebar = () => {
   const isOpen = useSelector((state: RootState) => state.SidebarReducer.isOpen);

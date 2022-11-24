@@ -3,9 +3,9 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
-  const Navbar = dynamic(() => import("./Navbar"));
-  const Sidebar = dynamic(() => import("./Sidebar"));
-  const Footer = dynamic(() => import("./Footer"));
+  const Navbar = dynamic(() => import("./Navbar/Navbar"));
+  const Sidebar = dynamic(() => import("./Sidebar/Sidebar"));
+  const Footer = dynamic(() => import("./Footer/Footer"));
 
   const { route } = useRouter();
   const listNotShowNavbar = [

@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { footerList, paymentMethod, socialMedia } from "../data/footer";
+import { footerList, paymentMethod, socialMedia } from "../../data/footer";
 
 const Footer = () => {
   return (
