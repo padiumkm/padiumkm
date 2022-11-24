@@ -5,10 +5,8 @@ import Image from "next/image";
 import { IProductCard } from "../components/productCard/IProductCard";
 
 const Home: NextPage = () => {
-  const SwiperProduct = dynamic(() => import("../components/Swiper/Product"), {
-    ssr: false,
-  });
-  const FAQ = dynamic(() => import("../components/FAQ"));
+  const SwiperProduct = dynamic(() => import("../components/Swiper/Product"));
+  const FAQ = dynamic(() => import("../components/FAQ/FAQ"));
 
   const products: IProductCard[] = [
     {
