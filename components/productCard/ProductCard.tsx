@@ -13,7 +13,7 @@ const ProductCard: React.FC<IProductCard> = ({
   sold,
 }) => {
   return (
-    <div className="flex flex-col min-h-[350px] rounded-lg shadow min-w-[13rem]">
+    <div className="flex flex-col min-h-[350px] rounded-lg shadow xl:min-w-[13rem]">
       <div className="min-h-[170px] relative">
         <Image
           src={image}

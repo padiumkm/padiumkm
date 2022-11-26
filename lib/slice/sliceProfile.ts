@@ -2,16 +2,16 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
 type User = {
-  avatar: string;
-  nik: string;
-  position: string;
+  avatar?: string;
+  nik?: string;
+  position?: string;
   name: string;
   email: string;
-  phone_number: string;
-  office_number: string;
-  total_cart: number;
-  total_notificaton: number;
-  has_submit_nps: boolean;
+  phone_number?: string;
+  office_number?: string;
+  total_cart?: number;
+  total_notificaton?: number;
+  has_submit_nps?: boolean;
 }
 
 type ProfileState = {
@@ -46,7 +46,10 @@ export const sliceProfile = createSlice({
   initialState,
   reducers: {
     saveProfile: (state, action: PayloadAction<User>) => {
-      state.user = action.payload;
+      state.user = {
+        ...state.user,
+        ...action.payload,
+      }
     },
   },
 });

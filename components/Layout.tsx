@@ -13,6 +13,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
     "/register-as",
     "/register",
     "/forgot-password",
+    "/activate-account/[id]",
   ];
 
   return (
