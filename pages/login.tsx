@@ -7,6 +7,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import Button from "../components/button/Button";
 import { setCookie } from "cookies-next";
 import { useRouter } from "next/router";
+import { ThreeDots } from "react-loader-spinner";
 
 type FormValues = {
   email: string;
@@ -30,8 +31,10 @@ const Login: NextPage = () => {
 
   const [isHidden, setIsHidden] = useState<boolean>(true);
   const [selectedCard, setSelectedCard] = useState<number>(0);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
+    setIsLoading(true);
     fetch("http://localhost:9000/api/v1/user/login", {
       method: "POST",
       headers: {
@@ -42,6 +45,7 @@ const Login: NextPage = () => {
         password: data.password,
       }),
     }).then((res) => {
+      setIsLoading(false);
       if (res.status === 200) {
         res.json().then((data) => {
           setCookie("token", data.data)
@@ -179,7 +183,7 @@ const Login: NextPage = () => {
               <input
                 {...register("email", {
                   required: true,
-                  pattern: /^[a-z0-9]+@[a-z]+\.[a-z]{2,3}$/,
+                  pattern: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g,
                 })}
                 name="email"
                 type="email"
@@ -259,7 +263,13 @@ const Login: NextPage = () => {
                 primary
                 disabled={errors.email || errors.password ? true : false}
               >
-                Login
+                {isLoading ? (
+                  <div className="flex items-center justify-center py-2">
+                    <ThreeDots color="white" height={8} />
+                  </div>
+                ) : (
+                  "Login"
+                )}
               </Button>
             </div>
           </form>

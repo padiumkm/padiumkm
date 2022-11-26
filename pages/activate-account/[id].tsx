@@ -8,6 +8,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { saveProfile } from "../../lib/slice/sliceProfile";
 import jwt_decode from "jwt-decode";
+import { ThreeDots } from "react-loader-spinner";
 
 interface FormValues {
   password: string;
@@ -31,6 +32,7 @@ const ActivateAccount: NextPage = () => {
   const [email, setEmail] = useState("");
   const [isHiddenPassword, setIsHiddenPassword] = useState<boolean>(true);
   const [isHiddenConfirmPass, setIsHiddenConfirmPass] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   let [userId, emailToken] = params || [];
 
   const {
@@ -295,7 +297,13 @@ const ActivateAccount: NextPage = () => {
                 errors.password || errors.confirmPassword ? true : false
               }
             >
-              Simpan dan Masuk
+              {isLoading ? (
+                <div className="flex items-center justify-center py-2">
+                  <ThreeDots color="white" height={8} />
+                </div>
+              ) : (
+                "Simpan dan Masuk"
+              )}
             </button>
           </div>
         </form>
