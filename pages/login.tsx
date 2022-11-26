@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import Button from "../components/button/Button";
+import { setCookie } from "cookies-next";
 
 type FormValues = {
   email: string;
@@ -28,7 +29,22 @@ const Login: NextPage = () => {
   const [selectedCard, setSelectedCard] = useState<number>(0);
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
-    console.log(data);
+    fetch("http://localhost:9000/api/v1/user/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: data.email,
+        password: data.password,
+      }),
+    }).then((res) => {
+      if (res.status === 200) {
+        res.json().then((data) => {
+          setCookie("token", data.data)
+        });
+      }
+    });
   };
 
   const loginCards: LoginCard[] = [
