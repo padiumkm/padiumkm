@@ -1,28 +1,17 @@
 import dynamic from "next/dynamic";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
-import { getCookie, hasCookie } from "cookies-next";
-import jwt_decode from "jwt-decode";
-import { useDispatch } from "react-redux";
-import { saveProfile } from "../lib/slice/sliceProfile";
-
-interface Token {
-  username: string;
-  name: string;
-  sub: string;
-  iat: string;
-  exp: string;
-  iss: string;
-}
+import { useSelector } from "react-redux";
+import { RootState } from "../lib/store";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const Navbar = dynamic(() => import("./Navbar/Navbar"));
   const Sidebar = dynamic(() => import("./Sidebar/Sidebar"));
   const Footer = dynamic(() => import("./Footer/Footer"));
 
+  const modal = useSelector((state: RootState) => state.ModalReducer);
+
   const { route } = useRouter();
-  const dispatch = useDispatch();
   const listNotShowNavbar = [
     "/login",
     "/register-as",
@@ -30,14 +19,6 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
     "/forgot-password",
     "/activate-account/[id]",
   ];
-
-  useEffect(() => {
-    if (hasCookie("token")) {
-      const token = getCookie("token")?.toString() || "";
-      const decoded = jwt_decode<Token>(token);
-      dispatch(saveProfile({ name: decoded.name, email: decoded.username }));
-    }
-  }, []);
 
   return (
     <div>
@@ -49,7 +30,11 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
         />
       </Head>
 
-      <header className="sticky top-0 z-10 shadow-md">
+      {modal.showAlert || modal.showCategory || modal.showProfile ? (
+        <div className="fixed inset-0 bg-black h-full w-full z-20 opacity-60" />
+      ) : null}
+
+      <header className="sticky top-0 z-30 shadow-md">
         {listNotShowNavbar.includes(route) ? null : (
           <>
             <Navbar />
