@@ -1,6 +1,20 @@
 import dynamic from "next/dynamic";
 import Head from "next/head";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
+import { getCookie, hasCookie } from "cookies-next";
+import jwt_decode from "jwt-decode";
+import { useDispatch } from "react-redux";
+import { saveProfile } from "../lib/slice/sliceProfile";
+
+interface Token {
+  username: string;
+  name: string;
+  sub: string;
+  iat: string;
+  exp: string;
+  iss: string;
+}
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const Navbar = dynamic(() => import("./Navbar/Navbar"));
@@ -8,6 +22,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   const Footer = dynamic(() => import("./Footer/Footer"));
 
   const { route } = useRouter();
+  const dispatch = useDispatch();
   const listNotShowNavbar = [
     "/login",
     "/register-as",
@@ -15,6 +30,14 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
     "/forgot-password",
     "/activate-account/[id]",
   ];
+
+  useEffect(() => {
+    if (hasCookie("token")) {
+      const token = getCookie("token")?.toString() || "";
+      const decoded = jwt_decode<Token>(token);
+      dispatch(saveProfile({ name: decoded.name, email: decoded.username }));
+    }
+  }, []);
 
   return (
     <div>
