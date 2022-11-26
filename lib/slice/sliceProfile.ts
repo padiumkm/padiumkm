@@ -51,8 +51,11 @@ export const sliceProfile = createSlice({
         ...action.payload,
       }
     },
+    deleteProfile: (state) => {
+      state.user = initialState.user;
+    }
   },
 });
 
-export const { saveProfile } = sliceProfile.actions;
+export const { saveProfile, deleteProfile } = sliceProfile.actions;
 export default sliceProfile.reducer;

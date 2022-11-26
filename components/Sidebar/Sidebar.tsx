@@ -1,12 +1,44 @@
+import { deleteCookie } from "cookies-next";
 import Image from "next/image";
 import Link from "next/link";
-import { useSelector } from "react-redux";
+import { useRouter } from "next/router";
+import { useDispatch, useSelector } from "react-redux";
 import { navigations } from "../../data/navigation";
+import { toggleSidebar } from "../../lib/slice/sliceSidebar";
+import { deleteProfile } from "../../lib/slice/sliceProfile";
 import { RootState } from "../../lib/store";
 import Button from "../button/Button";
 
 const Sidebar = () => {
   const isOpen = useSelector((state: RootState) => state.SidebarReducer.isOpen);
+  const user = useSelector((state: RootState) => state.ProfileReducer.user);
+  const router = useRouter();
+  const dispatch = useDispatch();
+
+  const list = [
+    {
+      name: "Pembayaran",
+      link: "/transaction/payment",
+      icon: "/credit-card.svg",
+    },
+    {
+      name: "Daftar Transaksi",
+      link: "/transaction",
+      icon: "/transaction.svg",
+    },
+    {
+      name: "Alamat Pengiriman",
+      link: "/dashboard/address",
+      icon: "/map.svg",
+    },
+  ];
+
+  const handleLogout = () => {
+    deleteCookie("token");
+    dispatch(deleteProfile());
+    dispatch(toggleSidebar());
+    router.replace("/login");
+  };
 
   return (
     <div
@@ -15,15 +47,55 @@ const Sidebar = () => {
       }`}
     >
       <div className="flex flex-col">
-        <div className="flex flex-row justify-between items-center">
-          <Link href={"/login"}>
-            <Button className="px-10 xs:px-16">Masuk</Button>
-          </Link>
-          <Link href={"/register-as"}>
-            <Button className="px-10 xs:px-16" primary>Daftar</Button>
-          </Link>
-        </div>
-        <ul className="mt-4 space-y-2">
+        {user.name ? (
+          <div>
+            <div className="flex items-center justify-between w-full">
+              <div className="flex items-center space-x-3">
+                <div className="relative w-12 h-12">
+                  <Image src={"/avatar.svg"} alt="profile" fill sizes="16" />
+                </div>
+                <div className="flex flex-col">
+                  <p className="whitespace-nowrap font-semibold text-primaryText">
+                    {user.name}
+                  </p>
+                  <p className="text-[#8D8D97] text-sm">Buyer Retail</p>
+                </div>
+              </div>
+              <Button
+                primary
+                size="small"
+                className="text-sm whitespace-nowrap font-semibold"
+                onClick={() => router.push("/dashboard/profile")}
+              >
+                Lihat Profile
+              </Button>
+            </div>
+            <div className="border-t-2 w-full my-4" />
+            {list.map((item, index) => (
+              <Link href={item.link} key={index}>
+                <div className="flex items-center space-x-4 py-2 cursor-pointer hover:bg-tertiery">
+                  <div className="relative w-6 h-6">
+                    <Image src={item.icon} alt={item.name} fill />
+                  </div>
+                  <p className="font-semibold">{item.name}</p>
+                </div>
+              </Link>
+            ))}
+            <div className="border-t-2 w-full mt-4" />
+          </div>
+        ) : (
+          <div className="flex flex-row justify-between items-center">
+            <Link href={"/login"}>
+              <Button className="px-10 xs:px-16">Masuk</Button>
+            </Link>
+            <Link href={"/register-as"}>
+              <Button className="px-10 xs:px-16" primary>
+                Daftar
+              </Button>
+            </Link>
+          </div>
+        )}
+        <ul className="my-4 space-y-2">
           {navigations.map((navigation, index) => (
             <li className="hover:text-primaryBlue" key={index}>
               <Link href={navigation.link}>
@@ -32,6 +104,18 @@ const Sidebar = () => {
             </li>
           ))}
         </ul>
+        <div className="border-t-2 w-full mb-4" />
+        {user.name ? (
+          <div
+            className="flex items-center space-x-4  cursor-pointer hover:bg-tertiery"
+            onClick={handleLogout}
+          >
+            <div className="relative w-6 h-6">
+              <Image src={"/logout.svg"} alt="logout" fill />
+            </div>
+            <p className="font-semibold">Keluar</p>
+          </div>
+        ) : null}
       </div>
       <div className="relative flex items-center justify-end space-x-4 bottom-36">
         <div className="flex items-center relative">

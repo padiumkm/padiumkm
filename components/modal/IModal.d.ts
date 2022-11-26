@@ -1,13 +1,4 @@
-export interface IModal {
-  /**
-   * Show modal
-   * @type boolean
-   * @example
-   * <Modal show={true} setShow={setShow} />
-   * @default false
-   * @required
-   */
-  show: boolean;
+export interface IModalAlert {
   /**
    * Header modal
    * @type string
@@ -48,4 +39,25 @@ export interface IModal {
     onClick: () => void;
     primary?: boolean;
   }[];
+}
+
+export interface IModalProfile {
+  /**
+   * Name user
+   * @type string
+   * @example
+   * <Modal name="Name" />
+   * @default undefined
+   * @required
+   */
+  name: string;
+  /**
+   * Email user
+   * @type string
+   * @example
+   * <Modal email="Email" />
+   * @default undefined
+   * @required
+   */
+  email: string;
 }
