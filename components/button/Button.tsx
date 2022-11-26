@@ -2,7 +2,7 @@ import { IButton } from "./IButton";
 
 const Button: React.FC<IButton> = ({
   primary = false,
-  size = "medium",
+  size = "large",
   onClick,
   children = "Click me",
   disabled = false,
@@ -12,7 +12,14 @@ const Button: React.FC<IButton> = ({
     ? "bg-primaryBlue hover:bg-opacity-70 text-white"
     : "border border-primaryBlue hover:bg-primaryBlue text-primaryText hover:text-white";
 
-  const sizeClass = size === "small" ? "px-6" : "w-full";
+  const sizeClass =
+    size === "small"
+      ? "px-2"
+      : size === "medium"
+      ? "px-6"
+      : size === "large"
+      ? "w-full"
+      : "";
 
   return (
     <button
