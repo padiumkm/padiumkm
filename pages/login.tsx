@@ -6,6 +6,7 @@ import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import Button from "../components/button/Button";
 import { setCookie } from "cookies-next";
+import { useRouter } from "next/router";
 
 type FormValues = {
   email: string;
@@ -25,6 +26,8 @@ const Login: NextPage = () => {
     handleSubmit,
   } = useForm<FormValues>();
 
+  const router = useRouter();
+
   const [isHidden, setIsHidden] = useState<boolean>(true);
   const [selectedCard, setSelectedCard] = useState<number>(0);
 
@@ -42,6 +45,7 @@ const Login: NextPage = () => {
       if (res.status === 200) {
         res.json().then((data) => {
           setCookie("token", data.data)
+          router.replace("/");
         });
       }
     });

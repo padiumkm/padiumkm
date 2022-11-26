@@ -1,11 +1,14 @@
 import Image from "next/image";
+import { useSelector } from "react-redux";
+import { RootState } from "../../lib/store";
 import Button from "../button/Button";
-import { IModal } from "./IModal";
+import { IModalAlert } from "./IModal";
 
-const Modal: React.FC<IModal> = ({ show, header, body, icon, button }) => {
+const Alert: React.FC<IModalAlert> = ({ header, body, icon, button }) => {
+  const { showAlert } = useSelector((state: RootState) => state.ModalReducer);
   return (
     <>
-      {show ? (
+      {showAlert ? (
         <div className="flex flex-col sm:flex-row justify-center items-center md:m-8 space-x-4 bg-white rounded-lg p-6">
           <div
             className={`relative w-40 h-40 p-4 rounded-full ${
@@ -51,4 +54,4 @@ const Modal: React.FC<IModal> = ({ show, header, body, icon, button }) => {
     </>
   );
 };
-export default Modal;
+export default Alert;

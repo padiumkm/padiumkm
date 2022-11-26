@@ -13,7 +13,7 @@ export interface IButton {
    * @default 'medium'
    * @optional
    */
-  size?: "small" | "medium";
+  size?: "small" | "medium" | "large";
   /**
    * Disable button
    * @type boolean
