@@ -8,6 +8,8 @@ import Button from "../components/button/Button";
 import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
 import { showAlert, hideAlert } from "../lib/slice/sliceModal";
+import { useState } from "react";
+import { ThreeDots } from "react-loader-spinner";
 
 type FormValues = {
   name: string;
@@ -24,11 +26,30 @@ const Register: NextPage = () => {
 
   const router = useRouter();
   const dispatch = useDispatch();
+  const [isEmailTaken, setIsEmailTaken] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
     if (!errors.name && !errors.email && !errors.phone) {
-      console.log(data);
-      dispatch(showAlert());
+      setIsLoading(true);
+      fetch("http://localhost:9000/api/v1/user/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: data.name,
+          username: data.email,
+          phoneNumber: data.phone,
+        }),
+      }).then((res) => {
+        setIsLoading(false);
+        if (res.status === 201) {
+          dispatch(showAlert());
+        } else if (res.status === 409) {
+          setIsEmailTaken(true);
+        }
+      });
     }
   };
 
@@ -73,6 +94,40 @@ const Register: NextPage = () => {
               </Link>
             </div>
           </div>
+          {isEmailTaken ? (
+            <div className="w-full mb-6">
+              <div className="bg-red-100 flex items-center justify-between py-4 px-3 rounded-xl space-x-2">
+                <svg
+                  stroke="currentColor"
+                  fill="currentColor"
+                  strokeWidth="0"
+                  viewBox="0 0 512 512"
+                  className="text-red-500 text-[24px]"
+                  height="1em"
+                  width="1em"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path d="M256 48C141.2 48 48 141.2 48 256s93.2 208 208 208 208-93.2 208-208S370.8 48 256 48zm21 312h-42V235h42v125zm0-166h-42v-42h42v42z"></path>
+                </svg>
+                <p className="text-xs text-left text-primaryText w-full">
+                  Email anda sudah terdaftar.
+                </p>
+                <svg
+                  onClick={() => setIsEmailTaken(false)}
+                  stroke="currentColor"
+                  fill="currentColor"
+                  strokeWidth="0"
+                  viewBox="0 0 512 512"
+                  className="text-red-300 text-xl cursor-pointer"
+                  height="1em"
+                  width="1em"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path d="M256 48C140.559 48 48 140.559 48 256c0 115.436 92.559 208 208 208 115.435 0 208-92.564 208-208 0-115.441-92.564-208-208-208zm104.002 282.881l-29.12 29.117L256 285.117l-74.881 74.881-29.121-29.117L226.881 256l-74.883-74.881 29.121-29.116L256 226.881l74.881-74.878 29.12 29.116L285.119 256l74.883 74.881z"></path>
+                </svg>
+              </div>
+            </div>
+          ) : null}
           <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
             <div className="w-full space-y-2 mb-4">
               <label className="block text-paletteText-primary text-sm font-semibold">
@@ -106,7 +161,7 @@ const Register: NextPage = () => {
               <input
                 {...register("email", {
                   required: true,
-                  pattern: /^[a-z0-9]+@[a-z]+\.[a-z]{2,3}$/,
+                  pattern: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g,
                 })}
                 name="email"
                 type="email"
@@ -164,7 +219,13 @@ const Register: NextPage = () => {
                   errors.name || errors.email || errors.phone ? true : false
                 }
               >
-                Daftar
+                {isLoading ? (
+                  <div className="flex items-center justify-center py-2">
+                    <ThreeDots color="white" height={8} />
+                  </div>
+                ) : (
+                  "Daftar"
+                )}
               </Button>
             </div>
             <div className="w-full mb-2">
