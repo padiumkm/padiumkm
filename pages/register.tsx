@@ -2,11 +2,12 @@ import { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
-import Modal from "../components/modal/Modal";
-import { useState } from "react";
+import Alert from "../components/modal/Alert";
 import { useForm, SubmitHandler } from "react-hook-form";
 import Button from "../components/button/Button";
 import { useRouter } from "next/router";
+import { useDispatch } from "react-redux";
+import { showAlert, hideAlert } from "../lib/slice/sliceModal";
 
 type FormValues = {
   name: string;
@@ -22,14 +23,14 @@ const Register: NextPage = () => {
   } = useForm<FormValues>();
 
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
     if (!errors.name && !errors.email && !errors.phone) {
       console.log(data);
-      setShow(true);
+      dispatch(showAlert());
     }
   };
-  const [show, setShow] = useState(false);
 
   return (
     <section className="flex justify-center items-center lg:h-screen bg-whiteBackground relative">
@@ -37,8 +38,7 @@ const Register: NextPage = () => {
         <title>Register | PaDi UMKM</title>
       </Head>
       <div className="absolute z-30">
-        <Modal
-          show={show}
+        <Alert
           header={"Konfirmasi Email Anda"}
           body={
             "Terima kasih telah melakukan registrasi, cek email anda untuk melakukan aktivitas akun PaDi UMKM"
@@ -48,7 +48,7 @@ const Register: NextPage = () => {
             {
               text: "Kembali ke Beranda",
               onClick: () => {
-                setShow(false);
+                dispatch(hideAlert());
                 router.replace("/");
               },
               primary: true,
@@ -56,9 +56,6 @@ const Register: NextPage = () => {
           ]}
         />
       </div>
-      {show ? (
-        <div className="absolute bg-[#808080] min-h-screen w-full z-20 bg-opacity-80" />
-      ) : null}
       <div className="max-w-screen-lg w-full bg-white rounded-lg lg:flex h-fit overflow-hidden">
         <div className="flex flex-col justify-center items-center w-full h-screen lg:h-full p-10">
           <div className="w-full">
