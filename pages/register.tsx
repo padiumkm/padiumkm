@@ -1,4 +1,3 @@
-import { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
@@ -10,6 +9,8 @@ import { useDispatch } from "react-redux";
 import { showAlert, hideAlert } from "../lib/slice/sliceModal";
 import { useState } from "react";
 import { ThreeDots } from "react-loader-spinner";
+import { NextPageWithLayout } from "./_app";
+import AuthLayout from "../components/Layout/Auth";
 
 type FormValues = {
   name: string;
@@ -17,7 +18,7 @@ type FormValues = {
   phone: number;
 };
 
-const Register: NextPage = () => {
+const Register: NextPageWithLayout = () => {
   const {
     register,
     formState: { errors },
@@ -284,4 +285,7 @@ const Register: NextPage = () => {
     </section>
   );
 };
+
+Register.getLayout = (page) => <AuthLayout>{page}</AuthLayout>;
+
 export default Register;

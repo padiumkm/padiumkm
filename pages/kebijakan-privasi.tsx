@@ -1,7 +1,8 @@
-import { NextPage } from "next";
 import Head from "next/head";
+import Layout from "../components/Layout/Main";
+import { NextPageWithLayout } from "./_app";
 
-const KebijakanPrivasi: NextPage = () => {
+const KebijakanPrivasi: NextPageWithLayout = () => {
   return (
     <div className="space-y-6 text-sm text-primaryText mx-4 lg:mx-80 mt-10 mb-20">
       <Head>
@@ -93,5 +94,7 @@ const KebijakanPrivasi: NextPage = () => {
     </div>
   );
 };
+
+KebijakanPrivasi.getLayout = (page) => <Layout>{page}</Layout>;
 
 export default KebijakanPrivasi;

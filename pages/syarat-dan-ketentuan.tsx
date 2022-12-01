@@ -1,9 +1,10 @@
-import { NextPage } from "next";
 import Head from "next/head";
 import parse from "html-react-parser";
 import { syaratDanKetentuan } from "../data/syarat-dan-ketentuan";
+import { NextPageWithLayout } from "./_app";
+import Layout from "../components/Layout/Main";
 
-const SyaratDanKetentuan: NextPage = () => {
+const SyaratDanKetentuan: NextPageWithLayout = () => {
   return (
     <div className="space-y-6 text-sm text-primaryText mx-4 lg:mx-80 mt-10 mb-20">
       <Head>
@@ -56,5 +57,7 @@ const SyaratDanKetentuan: NextPage = () => {
     </div>
   );
 };
+
+SyaratDanKetentuan.getLayout = (page) => <Layout>{page}</Layout>;
 
 export default SyaratDanKetentuan;

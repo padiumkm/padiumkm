@@ -3,12 +3,14 @@ import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import { useForm, SubmitHandler } from "react-hook-form";
+import AuthLayout from "../components/Layout/Auth";
+import { NextPageWithLayout } from "./_app";
 
 type FormValues = {
   email: string;
 };
 
-const ForgotPassword: NextPage = () => {
+const ForgotPassword: NextPageWithLayout = () => {
   const {
     register,
     formState: { errors },
@@ -98,5 +100,7 @@ const ForgotPassword: NextPage = () => {
     </div>
   );
 };
+
+ForgotPassword.getLayout = (page) => <AuthLayout>{page}</AuthLayout>;
 
 export default ForgotPassword;
