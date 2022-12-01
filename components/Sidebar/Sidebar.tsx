@@ -70,26 +70,28 @@ const Sidebar = () => {
                 Lihat Profile
               </Button>
             </div>
-            <div className="border-t-2 w-full my-4" />
             {list.map((item, index) => (
-              <Link href={item.link} key={index}>
-                <div className="flex items-center space-x-4 py-2 cursor-pointer hover:bg-tertiery">
-                  <div className="relative w-6 h-6">
-                    <Image src={item.icon} alt={item.name} fill />
+              <>
+                <div className="border-t-2 w-full my-4" />
+                <Link href={item.link} key={index}>
+                  <div className="flex items-center space-x-4 py-2 cursor-pointer hover:bg-tertiery">
+                    <div className="relative w-6 h-6">
+                      <Image src={item.icon} alt={item.name} fill />
+                    </div>
+                    <p className="font-semibold">{item.name}</p>
                   </div>
-                  <p className="font-semibold">{item.name}</p>
-                </div>
-              </Link>
+                </Link>
+              </>
             ))}
             <div className="border-t-2 w-full mt-4" />
           </div>
         ) : (
           <div className="flex flex-row justify-between items-center">
             <Link href={"/login"}>
-              <Button className="px-10 xs:px-16">Masuk</Button>
+              <Button className="px-10 xs:px-12" size="large">Masuk</Button>
             </Link>
             <Link href={"/register-as"}>
-              <Button className="px-10 xs:px-16" primary>
+              <Button className="px-10 xs:px-12" size="large" primary>
                 Daftar
               </Button>
             </Link>
@@ -104,17 +106,19 @@ const Sidebar = () => {
             </li>
           ))}
         </ul>
-        <div className="border-t-2 w-full mb-4" />
         {user.name ? (
-          <div
-            className="flex items-center space-x-4  cursor-pointer hover:bg-tertiery"
-            onClick={handleLogout}
-          >
-            <div className="relative w-6 h-6">
-              <Image src={"/logout.svg"} alt="logout" fill />
+          <>
+            <div className="border-t-2 w-full mb-4" />
+            <div
+              className="flex items-center space-x-4  cursor-pointer hover:bg-tertiery"
+              onClick={handleLogout}
+            >
+              <div className="relative w-6 h-6">
+                <Image src={"/logout.svg"} alt="logout" fill />
+              </div>
+              <p className="font-semibold">Keluar</p>
             </div>
-            <p className="font-semibold">Keluar</p>
-          </div>
+          </>
         ) : null}
       </div>
       <div className="relative flex items-center justify-end space-x-4 bottom-36">

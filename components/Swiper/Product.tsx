@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Swiper from "swiper";
 import { Swiper as SwiperComp, SwiperSlide } from "swiper/react";
 import "swiper/swiper-bundle.css";

@@ -172,7 +172,7 @@ const Navbar = () => {
             </div>
           </div>
         </div>
-        <div className="relative items-center border-b bg-white sm:hidden my-2 mx-[22px]">
+        <div className="relative items-center bg-white sm:hidden my-2 mx-[22px]">
           <SearchBar layout="mobile" />
         </div>
       </div>
