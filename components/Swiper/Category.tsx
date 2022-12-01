@@ -1,16 +1,19 @@
+import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 import Swiper from "swiper";
 import { Swiper as SwiperComp, SwiperSlide } from "swiper/react";
 import "swiper/swiper-bundle.css";
-import { IProductCard } from "../productCard/IProductCard";
-import ProductCard from "../productCard/ProductCard";
 
 interface Props {
   title: string;
-  data: IProductCard[];
+  data: {
+    name: string;
+    icon: string;
+  }[];
 }
 
-const Product: React.FC<Props> = ({ title, data }) => {
+const Category: React.FC<Props> = ({ title, data }) => {
   const [swiper, setSwiper] = useState<Swiper>();
   const [swiperState, setSwiperState] = useState({
     isBeginning: true,
@@ -95,39 +98,44 @@ const Product: React.FC<Props> = ({ title, data }) => {
         onSlideChange={(swipper) => setSwiperState({ ...swipper })}
         breakpoints={{
           0: {
-            slidesPerView: 1,
-          },
-          370: {
-            slidesPerView: 2,
+            slidesPerView: 3,
+            spaceBetween: 0,
           },
           720: {
-            slidesPerView: 3,
-          },
-          950: {
             slidesPerView: 4,
+            spaceBetween: 5
           },
           1020: {
             slidesPerView: 5,
+            spaceBetween: 5
           },
           1210: {
             slidesPerView: 6,
+            spaceBetween: 5
           },
         }}
-        spaceBetween={5}
+        spaceBetween={0}
       >
         {data.map((item, index) => (
-          <SwiperSlide className="p-0.5" key={index}>
-            <ProductCard
-              image={item.image}
-              name={item.name}
-              price={item.price}
-              location={item.location}
-              produkDalamNegeri={item.produkDalamNegeri}
-              tkdn={item.tkdn}
-              review={item.review}
-              rating={item.rating}
-              sold={item.sold}
-            />
+          <SwiperSlide key={index}>
+            <Link
+              href={{
+                pathname: "/search",
+                query: {
+                  category: item.name
+                    .toLowerCase()
+                    .replaceAll(" ", "-")
+                    .replaceAll("&", "and"),
+                },
+              }}
+            >
+              <div className="flex flex-col justify-center items-center space-y-2 text-center w-28 xl:min-w-[12rem]">
+                <div className="relative w-10 h-10 lg:w-20 lg:h-20">
+                  <Image src={item.icon} alt={item.name} fill />
+                </div>
+                <p className="text-sm lg:text-base line-clamp-2">{item.name}</p>
+              </div>
+            </Link>
           </SwiperSlide>
         ))}
       </SwiperComp>
@@ -135,4 +143,4 @@ const Product: React.FC<Props> = ({ title, data }) => {
   );
 };
 
-export default Product;
+export default Category;

@@ -1,11 +1,13 @@
-import type { NextPage } from "next";
 import dynamic from "next/dynamic";
 import Head from "next/head";
 import Image from "next/image";
+import MainLayout from "../components/Layout/Main";
 import { IProductCard } from "../components/productCard/IProductCard";
+import { NextPageWithLayout } from "./_app";
 
-const Home: NextPage = () => {
+const Home: NextPageWithLayout = () => {
   const SwiperProduct = dynamic(() => import("../components/Swiper/Product"));
+  const SwiperCategory = dynamic(() => import("../components/Swiper/Category"));
   const FAQ = dynamic(() => import("../components/FAQ/FAQ"));
 
   const products: IProductCard[] = [
@@ -22,6 +24,49 @@ const Home: NextPage = () => {
       review: 4,
       rating: 4,
       sold: 100,
+    },
+  ];
+
+  const categories: { name: string; icon: string }[] = [
+    {
+      name: "Elektronik",
+      icon: "/elektronik.webp",
+    },
+    {
+      name: "Jasa Konstruksi & Renovasi",
+      icon: "/konstruksi-renovasi.webp",
+    },
+    {
+      name: "Pertukangan",
+      icon: "/pertukangan.webp",
+    },
+    {
+      name: "Office & Stationery",
+      icon: "/office-stationery.webp",
+    },
+    {
+      name: "Jasa Perawatan Peralatan & Mesin",
+      icon: "/perawatan-peralatan-mesin.webp",
+    },
+    {
+      name: "Souvenir & Merchandise",
+      icon: "/souvenir-merchandise.webp",
+    },
+    {
+      name: "Jasa Event Organizer",
+      icon: "/event-organizer.webp",
+    },
+    {
+      name: "Jasa Mandor & Tenaga Kerja Lainnya",
+      icon: "/mandor-tenaga-lainnya.webp",
+    },
+    {
+      name: "Jasa Percetakan & Media",
+      icon: "/percetakan-media.webp",
+    },
+    {
+      name: "Kesehatan",
+      icon: "/kesehatan.webp",
     },
   ];
 
@@ -60,6 +105,7 @@ const Home: NextPage = () => {
           </div>
         </div>
       </div>
+      <SwiperCategory title="Kategori" data={categories} />
       <SwiperProduct title={"Bersama UMKM Majukan Negeri"} data={products} />
       <SwiperProduct title={"Promo Operasi Pasar Murah"} data={products} />
       <div className="flex flex-col">
@@ -130,5 +176,7 @@ const Home: NextPage = () => {
     </section>
   );
 };
+
+Home.getLayout = (page) => <MainLayout>{page}</MainLayout>;
 
 export default Home;

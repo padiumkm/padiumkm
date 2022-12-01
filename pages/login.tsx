@@ -1,4 +1,3 @@
-import { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
@@ -8,6 +7,8 @@ import Button from "../components/button/Button";
 import { setCookie } from "cookies-next";
 import { useRouter } from "next/router";
 import { ThreeDots } from "react-loader-spinner";
+import { NextPageWithLayout } from "./_app";
+import AuthLayout from "../components/Layout/Auth";
 
 type FormValues = {
   email: string;
@@ -20,7 +21,7 @@ type LoginCard = {
   image: string;
 };
 
-const Login: NextPage = () => {
+const Login: NextPageWithLayout = () => {
   const {
     register,
     formState: { errors },
@@ -48,7 +49,7 @@ const Login: NextPage = () => {
       setIsLoading(false);
       if (res.status === 200) {
         res.json().then((data) => {
-          setCookie("token", data.data)
+          setCookie("token", data.data);
           router.replace("/");
         });
       }
@@ -301,5 +302,7 @@ const Login: NextPage = () => {
     </section>
   );
 };
+
+Login.getLayout = (page) => <AuthLayout>{page}</AuthLayout>;
 
 export default Login;
