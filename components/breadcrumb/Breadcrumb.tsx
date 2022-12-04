@@ -14,7 +14,15 @@ const BreadCrumb: React.FC<IBreadCrumb> = ({ breadcrumbs }) => {
         return (
           <div className="flex items-center space-x-4" key={index}>
             <Link href={breadcrumb.href}>
-              <p>{breadcrumb.label}</p>
+              <p
+                className={`${
+                  index === breadcrumbs.length - 1
+                    ? "text-primaryText"
+                    : "text-gray-400"
+                } text-sm`}
+              >
+                {breadcrumb.label}
+              </p>
             </Link>
             {index < breadcrumbs.length - 1 && (
               <svg
@@ -22,7 +30,7 @@ const BreadCrumb: React.FC<IBreadCrumb> = ({ breadcrumbs }) => {
                 fill="currentColor"
                 strokeWidth="0"
                 viewBox="0 0 320 512"
-                className="text-xs"
+                className="text-xs text-gray-400"
                 height="1em"
                 width="1em"
                 xmlns="http://www.w3.org/2000/svg"
