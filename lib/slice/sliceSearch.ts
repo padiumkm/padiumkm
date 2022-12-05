@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { IProductCard } from "../../components/productCard/IProductCard";
 
 type SearchState = {
   isLoadingProduct: boolean;
@@ -20,6 +21,14 @@ type SearchState = {
       name: string;
     }[];
   };
+  searchResult: {
+    products: IProductCard[];
+    pagination: {
+      page: number;
+      total: number;
+      limit: number;
+    };
+  };
 };
 
 const initialState: SearchState = {
@@ -35,12 +44,41 @@ const initialState: SearchState = {
     products: [],
     store: [],
   },
+  searchResult: {
+    products: [],
+    pagination: {
+      page: 1,
+      total: 0,
+      limit: 0,
+    },
+  },
 };
 
 export const sliceSearch = createSlice({
   name: "SearchReducer",
   initialState,
-  reducers: {},
+  reducers: {
+    searchProduct: (state) => {
+      state.isLoadingProduct = true;
+      state.isSuccessProduct = false;
+      state.isErrorProduct = false;
+      state.errorMessageProduct = "";
+    },
+    searchProductSuccess: (state, action) => {
+      state.isLoadingProduct = false;
+      state.isSuccessProduct = true;
+      state.isErrorProduct = false;
+      state.errorMessageProduct = "";
+      state.searchResult = action.payload;
+    },
+    searchProductError: (state, action) => {
+      state.isLoadingProduct = false;
+      state.isSuccessProduct = false;
+      state.isErrorProduct = true;
+      state.errorMessageProduct = action.payload;
+    },
+  },
 });
 
+export const { searchProductSuccess } = sliceSearch.actions;
 export default sliceSearch.reducer;

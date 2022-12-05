@@ -6,6 +6,6 @@ module.exports = {
     defaultLocale: "id",
   },
   images: {
-    domains: ["picsum.photos"],
+    domains: ["picsum.photos", "res.cloudinary.com"],
   },
 };

@@ -1,6 +1,8 @@
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "../../lib/store";
 
 interface IBreadCrumb {
   href: string;
@@ -13,6 +15,24 @@ const SearchLayout: React.FC<{ children: React.ReactNode }> = ({
   const BreadCrumb = dynamic(() => import("../breadcrumb/Breadcrumb"));
 
   const router = useRouter();
+  const searchResult = useSelector(
+    (state: RootState) => state.SearchReducer.searchResult
+  );
+  const paginationMessage = () => {
+    if (searchResult.products.length === 0) {
+      return "Tidak ada hasil";
+    } else {
+      const startItem =
+        (searchResult?.pagination.page - 1) * searchResult?.pagination.limit +
+        1;
+      let endItem = startItem + searchResult?.pagination.limit - 1;
+      if (endItem > searchResult?.pagination.total) {
+        endItem = searchResult?.pagination.total;
+      }
+      return `Menampilkan ${startItem} - ${endItem} dari ${searchResult?.pagination.total} hasil`;
+    }
+  };
+
   const initialBreadcrumbs: IBreadCrumb[] = [
     {
       href: "/",
@@ -27,7 +47,7 @@ const SearchLayout: React.FC<{ children: React.ReactNode }> = ({
     const path = router.asPath.split("?");
 
     if (path.length > 1) {
-      const query = path[1].split("=");
+      const query = path[1].split("&page=")[0].split("=");
       if (query[0] === "category") {
         const category = query[1].replaceAll("-", " ").replaceAll("and", "&");
         const label = category.charAt(0).toUpperCase() + category.slice(1);
@@ -39,16 +59,47 @@ const SearchLayout: React.FC<{ children: React.ReactNode }> = ({
     } else {
       setBreadcrumbs(initialBreadcrumbs);
     }
-  }, [router.asPath]);
-
-  console.log(breadcrumbs);
+  }, [router.asPath.split("&page=")[0]]);
 
   return (
     <div className="my-8 space-y-8">
       <BreadCrumb breadcrumbs={breadcrumbs} />
       <div className="flex flex-col space-y-4 lg:space-y-0 lg:space-x-[30px] lg:flex-row px-5 md:px-14">
-        <div className="w-full lg:w-1/4 relative">Ini Kategori</div>
-        <div className="w-full lg:w-3/4">{children}</div>
+        <div className="w-full lg:w-1/4 relative">
+          <div className="space-y-3 divide-y overflow-y-scroll h-[420px] max-h-[420px] xl:h-[680px] xl:max-h-[680px] p-0 md:p-4 no-scrollbar">
+            Ini Kategori
+          </div>
+        </div>
+        <div className="w-full lg:w-3/4">
+          <div className="border-b border-gray-400">
+            <ul className="flex flex-wrap -mb-px space-x-6">
+              <li className="mr-2">
+                <div
+                  className="inline-block py-4 text-center cursor-pointer text-secondaryBlue rounded-t-lg border-b-4 border-secondaryBlue active font-bold"
+                  aria-current="page"
+                >
+                  Produk
+                </div>
+              </li>
+              <li className="mr-2">
+                <div
+                  className="inline-block py-4 text-center cursor-pointer text-paletteText-inactive border-b-2 border-transparent hover:border-gray-300' hover:text-gray-600 hover:border-gray-300"
+                  aria-current="page"
+                >
+                  Toko
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div className="flex flex-col items-center justify-between my-6 md:flex-row md:space-y-0">
+            <div>
+              {paginationMessage()} untuk{" "}
+              <span className="font-semibold">{breadcrumbs[breadcrumbs.length - 1].label}</span>
+            </div>
+            <div>Ini Filter</div>
+          </div>
+          {children}
+        </div>
       </div>
     </div>
   );
