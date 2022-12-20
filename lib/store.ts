@@ -1,4 +1,5 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import sliceCategory from "./slice/sliceCategory";
 import sliceModal from "./slice/sliceModal";
 import sliceProfile from "./slice/sliceProfile";
 import sliceSearch from "./slice/sliceSearch";
@@ -9,6 +10,7 @@ const reducer = combineReducers({
   SearchReducer: sliceSearch,
   SidebarReducer: sliceSidebar,
   ModalReducer: sliceModal,
+  CategoryReducer: sliceCategory,
 });
 
 export const store = configureStore({ reducer });
