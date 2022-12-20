@@ -42,7 +42,7 @@ const Profile: React.FC<IModalProfile> = ({ name, email }) => {
   return (
     <>
       {showProfile ? (
-        <div className="absolute overflow-hidden cursor-default mt-10 origin-top-right right-0 w-[396px] bg-white shadow-lg rounded-md ring-1 ring-black ring-opacity-5">
+        <div className="absolute z-30 overflow-hidden cursor-default mt-10 origin-top-right right-0 w-[396px] bg-white shadow-lg rounded-md ring-1 ring-black ring-opacity-5">
           <div className="py-1">
             <div className="text-gray-700 block px-4 py-2 text-sm">
               <div className="flex items-center justify-between space-x-3">
