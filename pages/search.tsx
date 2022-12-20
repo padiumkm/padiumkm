@@ -15,68 +15,70 @@ const Search: NextPageWithLayout = () => {
   const dispatch = useDispatch();
   const [products, setProducts] = useState<IProductCard[]>([]);
   const [pageCount, setPageCount] = useState<number>(0);
+  const [page, setPage] = useState<number>(1);
+  const [url, setUrl] = useState<string>("");
+
+  const translateBreadCrumb = (label: string) => {
+    const temp = label.replaceAll("-", " ").replaceAll("and", "&");
+    return temp.charAt(0).toUpperCase() + temp.slice(1);
+  };
 
   const handlePageClick = ({ selected }: { selected: number }) => {
-    fetch(`http://localhost:9002/api/v1/item/all/${selected+1}`).then((res) => {
-      res.json().then((data) => {
-        const products: IProductCard[] = data.data.data.map((item: any) => {
-          return {
-            name: item.name,
-            price: item.price,
-            image: item.image,
-            location: item.location,
-            review: 4,
-            rating: 4,
-            sold: 100,
-          };
-        });
-        setProducts(products);
-        setPageCount(data.data.pagination.allPage);
-        dispatch(
-          searchProductSuccess({
-            products: products,
-            pagination: {
-              page: data.data.pagination.page,
-              total: data.data.pagination.allItems,
-              limit: data.data.pagination.limit,
-            },
-          })
-        );
-      });
-    });
-    
-    history.push(
-      `${history.asPath.split("&page=")[0]}&page=${selected + 1}`
-    );
+    setPage(selected + 1);
+    history.replace(`${history.asPath.split("?page=")[0]}?page=${selected + 1}`);
   };
 
   useEffect(() => {
-    fetch("http://localhost:9002/api/v1/item/all/1").then((res) => {
-      res.json().then((data) => {
-        const products: IProductCard[] = data.data.data.map((item: any) => {
-          return {
-            name: item.name,
-            price: item.price,
-            image: item.image,
-            location: item.location,
-            review: 4,
-            rating: 4,
-            sold: 100,
-          };
+    const path = history.asPath.split("?");
+    
+    const category = path.length > 1 ? path[1].split("&page=")[0].split("=") : [];
+    
+    const URI = `http://localhost:9002/api/v1/item/${
+      category.includes("category") ? "category" : "all"
+    }${
+      category.includes("category")
+        ? `/${translateBreadCrumb(category[category.length - 1])}`
+        : ""
+    }`;
+
+    setUrl(URI);
+
+    fetch(`${URI}/${page}`).then((res) => {
+      if (res.status === 200) {
+        res.json().then((data) => {
+          const products: IProductCard[] = data.data.data.map((item: any) => {
+            return {
+              name: item.name,
+              price: item.price,
+              image: item.image,
+              location: item.location,
+              review: 4,
+              rating: 4,
+              sold: 100,
+            };
+          });
+          
+          setProducts(products);
+          setPageCount(data.data.pagination.allPage);
+          dispatch(
+            searchProductSuccess({
+              products: products,
+              pagination: {
+                page: data.data.pagination.page,
+                total: data.data.pagination.allItems,
+                limit: data.data.pagination.limit,
+              },
+            })
+          );
         });
-        setProducts(products);
-        setPageCount(data.data.pagination.allPage);
-        dispatch(searchProductSuccess({
-          products: products,
-          pagination: {
-            page: data.data.pagination.page,
-            total: data.data.pagination.allItems,
-            limit: data.data.pagination.limit,
-          }
-        }))
-      });
+      }
     });
-  }, []);
+
+    return () => {
+      setPage(1);
+    }
+    
+  }, [history.asPath.split("&page=")[0]]);
 
   return (
     <div className="">
@@ -84,7 +86,6 @@ const Search: NextPageWithLayout = () => {
         <title>Pencarian | Padi UMKM</title>
       </Head>
       <div className="overflow-hidden">
-        
         <div className="grid grid-cols-2 md:px-[10px] gap-y-4 gap-x-4 py-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
           {products.map((product, index) => (
             <ProductCard key={index} {...product} />

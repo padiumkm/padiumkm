@@ -71,9 +71,9 @@ const Sidebar = () => {
               </Button>
             </div>
             {list.map((item, index) => (
-              <>
+              <div key={index}>
                 <div className="border-t-2 w-full my-4" />
-                <Link href={item.link} key={index}>
+                <Link href={item.link}>
                   <div className="flex items-center space-x-4 py-2 cursor-pointer hover:bg-tertiery">
                     <div className="relative w-6 h-6">
                       <Image src={item.icon} alt={item.name} fill />
@@ -81,14 +81,16 @@ const Sidebar = () => {
                     <p className="font-semibold">{item.name}</p>
                   </div>
                 </Link>
-              </>
+              </div>
             ))}
             <div className="border-t-2 w-full mt-4" />
           </div>
         ) : (
           <div className="flex flex-row justify-between items-center">
             <Link href={"/login"}>
-              <Button className="px-10 xs:px-12" size="large">Masuk</Button>
+              <Button className="px-10 xs:px-12" size="large">
+                Masuk
+              </Button>
             </Link>
             <Link href={"/register-as"}>
               <Button className="px-10 xs:px-12" size="large" primary>
