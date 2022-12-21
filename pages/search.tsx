@@ -1,18 +1,22 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { ReactElement, useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import MainLayout from "../components/Layout/Main";
 import SearchLayout from "../components/Layout/Search";
 import Pagination from "../components/pagination/Pagination";
 import { IProductCard } from "../components/productCard/IProductCard";
 import ProductCard from "../components/productCard/ProductCard";
 import { searchProductSuccess } from "../lib/slice/sliceSearch";
+import { RootState } from "../lib/store";
 import { NextPageWithLayout } from "./_app";
 
 const Search: NextPageWithLayout = () => {
   const history = useRouter();
   const dispatch = useDispatch();
+  const sorting = useSelector((state: RootState) => state.SortingReducer.sort);
+  
+  const [initialProducts, setInitialProducts] = useState<IProductCard[]>([]);
   const [products, setProducts] = useState<IProductCard[]>([]);
   const [pageCount, setPageCount] = useState<number>(0);
   const [page, setPage] = useState<number>(1);
@@ -59,6 +63,7 @@ const Search: NextPageWithLayout = () => {
           });
           
           setProducts(products);
+          setInitialProducts(products);
           setPageCount(data.data.pagination.allPage);
           dispatch(
             searchProductSuccess({
@@ -79,6 +84,18 @@ const Search: NextPageWithLayout = () => {
     }
     
   }, [history.asPath.split("&page=")[0]]);
+
+  useEffect(() => {
+    if (sorting === "Harga Tertinggi") {
+      setProducts([...initialProducts].sort((a, b) => b.price - a.price));
+    } else if (sorting === "Harga Terendah") {
+      setProducts([...initialProducts].sort((a, b) => a.price - b.price));
+    } else if (sorting === "Ulasan") {
+      setProducts([...initialProducts].sort((a, b) => b.rating - a.rating));
+    } else if (sorting === "") {
+      setProducts(initialProducts);
+    }
+  }, [sorting]);
 
   return (
     <div className="">

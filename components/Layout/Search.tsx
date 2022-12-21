@@ -1,8 +1,11 @@
+import { privateDecrypt } from "crypto";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../lib/store";
+import FilterCategory from "../Filter/Category";
+import SortCategory from "../Sort/Category";
 
 interface IBreadCrumb {
   href: string;
@@ -78,15 +81,37 @@ const SearchLayout: React.FC<{ children: React.ReactNode }> = ({
     router.asPath.split("subcategory=")[1],
   ]);
 
+  const [HargaMax, setHargaMax] = useState();
+  const [HargaMin, setHargaMin] = useState();
+
+  // const handleMaxChange = (e) => {
+  //   setHargaMax(e.target.value);
+  //   console.log(HargaMax);
+  // };
+  // const handleMinChange = (e) => {
+  //   setHargaMin(e.target.value);
+  //   console.log(HargaMin);
+  // };
+
+  // Untuk sort select, tapi datanya belum di sambungin yu
+  // const [select, setSelect] = useState("");
+  // const handleSelect = (e) => {
+  //   setSelect(e.target.value);
+  //   console.log(e.target.value);
+  // };
+  // useEffect(()=>{
+  //   if(select === 'hargaMax'){
+  //     price.sort((a, b)=>(a.price)>(b.price))
+  //   }else{
+  //     price.sort((a, b)=>(b.price)>(a.price))
+  //   }
+  // })
+
   return (
     <div className="my-8 space-y-8">
       <BreadCrumb breadcrumbs={breadcrumbs} />
       <div className="flex flex-col space-y-4 lg:space-y-0 lg:space-x-[30px] lg:flex-row px-5 md:px-14">
-        <div className="w-full lg:w-1/4 relative">
-          <div className="space-y-3 divide-y overflow-y-scroll h-[420px] max-h-[420px] xl:h-[680px] xl:max-h-[680px] p-0 md:p-4 no-scrollbar">
-            Ini Kategori
-          </div>
-        </div>
+        <FilterCategory />
         <div className="w-full lg:w-3/4">
           <div className="border-b border-gray-400">
             <ul className="flex flex-wrap -mb-px space-x-6">
@@ -115,7 +140,10 @@ const SearchLayout: React.FC<{ children: React.ReactNode }> = ({
                 {breadcrumbs[breadcrumbs.length - 1].label}
               </span>
             </div>
-            <div>Ini Filter</div>
+            <div className="flex items-center space-x-2">
+              <p className="text-sm text-primaryText font-[700]">Urutkan:</p>
+              <SortCategory />
+            </div>
           </div>
           {children}
         </div>
