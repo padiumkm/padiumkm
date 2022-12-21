@@ -6,21 +6,28 @@ import Counter from "../../components/detailProduct/Counter";
 import Card from "../../components/detailProduct/Card";
 import { BsFillShareFill, BsClock } from "react-icons/bs";
 import { SlPencil } from "react-icons/Sl";
-import { IProductCard } from "../components/productCard/IProductCard";
+import { IProductCard } from "../../components/productCard/IProductCard";
 import Review from "../../components/detailProduct/Review";
 import {useState} from "react";
 
 
 
 const ProductDetail: NextPageWithLayout = () => {
-    const products: IProductCard =
-        {
-            price: 10000,
-            name: "Ini Produk",
-            avail: 50,
-            sold: 100,
-            rating: 4,
-        };
+    const products: IProductCard = {
+      name: "Ini Produk",
+      price: 10000,
+      image: "https://picsum.photos/200",
+      location: "Jakarta",
+      produkDalamNegeri: true,
+      tkdn: {
+        name: "TKDN",
+        value: 10,
+      },
+      review: 4,
+      rating: 4,
+      sold: 100,
+      avail: 50,
+    };
     const [show, setShow] = useState(true);
     const [qty, setQty] = useState(1);
 
@@ -60,8 +67,7 @@ const ProductDetail: NextPageWithLayout = () => {
                             name={products.name}
                             avail={products.avail}
                             sold={products.sold}
-                            rating={products.rating}
-
+                            rating={products.rating} image={""} location={""} review={0}
                         />
                         {/* counter */}
                         <div className="w-full space-y 5 text-primaryText mb-4">
