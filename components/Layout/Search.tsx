@@ -66,28 +66,28 @@ const SearchLayout: React.FC<{ children: React.ReactNode }> = ({
   const [HargaMax, setHargaMax] = useState();
   const [HargaMin, setHargaMin] = useState();
     
-  const handleMaxChange = (e) =>{
-    setHargaMax(e.target.value)
-    console.log(HargaMax)
-  }
-  const handleMinChange = (e) => {
-    setHargaMin(e.target.value)
-    console.log(HargaMin)
-  }
+  // const handleMaxChange = (e) =>{
+  //   setHargaMax(e.target.value)
+  //   console.log(HargaMax)
+  // }
+  // const handleMinChange = (e) => {
+  //   setHargaMin(e.target.value)
+  //   console.log(HargaMin)
+  // }
 
-  // Untuk sort select, tapi datanya belum di sambungin yu
-  const [select, setSelect] = useState('')
-  const handleSelect=(e)=> {
-    setSelect(e.target.value)
-    console.log(e.target.value);
-  }
-  useEffect(()=>{
-    if(select === 'hargaMax'){
-      price.sort((a, b)=>(a.price)>(b.price))
-    }else{
-      price.sort((a, b)=>(b.price)>(a.price))
-    }
-  })
+  // // Untuk sort select, tapi datanya belum di sambungin yu
+  // const [select, setSelect] = useState('')
+  // const handleSelect=(e)=> {
+  //   setSelect(e.target.value)
+  //   console.log(e.target.value);
+  // }
+  // useEffect(()=>{
+  //   if(select === 'hargaMax'){
+  //     price.sort((a, b)=>(a.price)>(b.price))
+  //   }else{
+  //     price.sort((a, b)=>(b.price)>(a.price))
+  //   }
+  // })
  
   return (
     <div className="my-8 space-y-8">
@@ -127,7 +127,7 @@ const SearchLayout: React.FC<{ children: React.ReactNode }> = ({
                                           type="number"
                                           placeholder="Contoh: 100.000" 
                                           pattern="^[0-9]*$" 
-                                          onChange={handleMinChange}
+                                          // onChange={handleMinChange}
                                           />
                       </div>
                     </div>
@@ -144,7 +144,7 @@ const SearchLayout: React.FC<{ children: React.ReactNode }> = ({
                                           type="number"
                                           placeholder="Contoh: 500.000" 
                                           pattern="^[0-9]*$" 
-                                          onChange={handleMaxChange}/>
+                                          />
                       </div>
                     </div>
                   </div>
