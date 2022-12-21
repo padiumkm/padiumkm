@@ -4,6 +4,7 @@ import sliceModal from "./slice/sliceModal";
 import sliceProfile from "./slice/sliceProfile";
 import sliceSearch from "./slice/sliceSearch";
 import sliceSidebar from "./slice/sliceSidebar";
+import sliceSorting from "./slice/sliceSorting";
 
 const reducer = combineReducers({
   ProfileReducer: sliceProfile,
@@ -11,6 +12,7 @@ const reducer = combineReducers({
   SidebarReducer: sliceSidebar,
   ModalReducer: sliceModal,
   CategoryReducer: sliceCategory,
+  SortingReducer: sliceSorting,
 });
 
 export const store = configureStore({ reducer });
