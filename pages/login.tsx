@@ -9,6 +9,7 @@ import { useRouter } from "next/router";
 import { ThreeDots } from "react-loader-spinner";
 import { NextPageWithLayout } from "./_app";
 import AuthLayout from "../components/Layout/Auth";
+import AlertMessage from "../components/Alert/Alert";
 
 type FormValues = {
   email: string;
@@ -31,6 +32,7 @@ const Login: NextPageWithLayout = () => {
   const router = useRouter();
 
   const [isHidden, setIsHidden] = useState<boolean>(true);
+  const [isAuthFailed, setIsAuthFailed] = useState<boolean>(false);
   const [selectedCard, setSelectedCard] = useState<number>(0);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -52,6 +54,8 @@ const Login: NextPageWithLayout = () => {
           setCookie("token", data.data);
           router.replace("/");
         });
+      } else if (res.status === 409) {
+        setIsAuthFailed(true);
       }
     });
   };
@@ -173,6 +177,11 @@ const Login: NextPageWithLayout = () => {
               </Link>
             </div>
           </div>
+          <AlertMessage
+            isShow={isAuthFailed}
+            message={"Tolong periksa kembali email dan kata sandi Anda."}
+            setIsShow={() => setIsAuthFailed(false)}
+          />
           <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
             <div className="w-full space-y-2 mb-4">
               <label
