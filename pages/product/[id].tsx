@@ -5,8 +5,10 @@ import Button from "../../components/button/Button";
 import Counter from "../../components/detailProduct/Counter";
 import Card from "../../components/detailProduct/Card";
 import { BsFillShareFill, BsClock } from "react-icons/bs";
+import { SlPencil } from "react-icons/Sl";
 import { IProductCard } from "../components/productCard/IProductCard";
 import Review from "../../components/detailProduct/Review";
+import {useState} from "react";
 
 
 
@@ -19,7 +21,18 @@ const ProductDetail: NextPageWithLayout = () => {
             sold: 100,
             rating: 4,
         };
-      
+    const [show, setShow] = useState(true);
+    const [qty, setQty] = useState(1);
+
+    const handleIncre = () => {
+        setQty((prevQty) => prevQty + 1);
+      };
+    
+      const handleDecre = () => {
+        if (qty > 1) {
+          setQty((prevQty) => prevQty - 1);
+        }
+      };
 
     return (
         <div className="flex flex-col h-full py-10">
@@ -52,25 +65,29 @@ const ProductDetail: NextPageWithLayout = () => {
                         />
                         {/* counter */}
                         <div className="w-full space-y 5 text-primaryText mb-4">
-                            <div className="font-semibold">Jumlah</div>
+                            <div className="font-semibold mb-2">Jumlah</div>
                             <div className="flex">
                                 <div className="relatif flex items-center border-[1px] text-primaryText rounded-sm leading-tight w-40 false">
-                                    {/* <Counter
-                                        quantity={quantity}
-                                        increase={increase}
-                                        decrease={decrease}
-                                        /> */}
+                                    <Counter
+                                        quantity={qty}
+                                        increase={handleIncre}
+                                        decrease={handleDecre}
+                                        />
                                 </div>
                             </div>
                         </div>
                         {/* Note */}
                         <div className="w-full space-y-5 text-primaryText mb-4">
                             <div>
-                                <div className="flex items-center space-x-4">
-                                    <span className="flex items-center text-secondaryBlue font-[700] space-x-3 cursor-pointer">
-                                        <img src={"/_next/static/media/edit-3.dc4aa004.svg"} alt="" className="w-6 h-6"/>
+                                <div className="items-center space-x-4">
+                                    <button onClick={()=>setShow(!show)} className="flex items-center text-secondaryBlue font-[700] space-x-3 cursor-pointer">
+                                        <SlPencil className="w-6 h-6"/>
                                             <div>Keterangan Tambahan</div>
-                                    </span>
+                                    </button>
+                                    {show?(
+                                    <input className="appearance-none border rounded-lg w-96 py-2 px-3 my-2 text-grey-darker focus:outline-none"
+                                            placeholder="Catatan"/>
+                                    ):null}
                                 </div>
                             </div>
                         </div>
@@ -95,13 +112,20 @@ const ProductDetail: NextPageWithLayout = () => {
                                 <div className="space-y-2">
                                     <div className="text-sm text-paletteText-inactive">Pengiriman Ke</div>
                                     <div className="whitespace-normal mb-4">-</div>
-                                    <div><span className="text-secondaryBlue font-bold cursor-pointer">Ubah Alamat</span></div>
+                                    <div>
+                                        <button className="text-secondaryBlue font-bold cursor-pointer">Ubah Alamat</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div className="flex items-start space-x-4">
                             <div>
-                                <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" className="text-xl text-paletteText-inactive" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+                                <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" className="text-xl text-paletteText-inactive" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                                    <rect x="1" y="3" width="15" height="13"></rect>
+                                    <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+                                    <circle cx="5.5" cy="18.5" r="2.5"></circle>
+                                    <circle cx="18.5" cy="18.5" r="2.5"></circle>
+                                </svg>
                             </div>
                             <div className="flex flex-col space-y-4 text-primaryText text-sm">
                                 <div className="space-y-1">
@@ -176,7 +200,7 @@ const ProductDetail: NextPageWithLayout = () => {
                 </div>
             </div>
             {/* Deatil dan Review */}
-            <div className="w-full px-5">
+            {/* <div className="w-full px-5">
                 <div className="border-b border-borderCard-divider lg:mx-28">
                     <ul className="flex flex-wrap -mb-px space-x-6">
                         <li>Ulasan</li>
@@ -185,7 +209,7 @@ const ProductDetail: NextPageWithLayout = () => {
 
                     <Review/>
                 </div>
-            </div>
+            </div> */}
         </div>
     );
 };

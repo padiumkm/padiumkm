@@ -8,15 +8,15 @@ type ICounter = {
   };
 const Counter: React.FC<ICounter> = ({ quantity, increase, decrease }) => {
   return ( 
-    <p className="border-[1px] leading-tight w-40 flex items-center rounded-sm gap-x-3">
-      <span className="flex items-center justify-center border-r py-4 px-3 w-10 h-12 left-0 mr-3 bg-inactive font-bold" onClick={decrease}>
+    <div className="border-[1px] leading-tight w-40 flex items-center rounded-sm gap-x-3">
+      <button className="flex items-center justify-center border-r py-4 px-3 w-10 h-12 bg-inactive font-bold bg-gray-200" onClick={decrease}>
         <AiOutlineMinus className="text-sm" />
-      </span>
+      </button>
       <span className="w-full h-full font-semibold focus:outline-none bg-transparent placeholder:text-[#8F95B2] text-center">{quantity}</span>
-      <span className="flex items-center justify-center border-r py-4 px-3 w-10 h-12 left-0 mr-3 bg-inactive font-bold" onClick={increase}>
+      <button className="flex items-center justify-center border-l py-4 px-3 w-10 h-12 bg-inactive font-bold bg-gray-200" onClick={increase}>
         <AiOutlinePlus className="text-sm" />
-      </span>
-    </p>
+      </button>
+    </div>
   );
 }
 export default Counter;
