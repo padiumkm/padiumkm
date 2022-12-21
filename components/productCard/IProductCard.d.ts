@@ -80,4 +80,13 @@ export interface IProductCard {
    * <ProductCard sold={10} />
    */
   sold: number;
+  /**
+   * The product available.
+   * @default undefined
+   * @required
+   * @type number
+   * @example
+   * <ProductCard avail={10} />
+   */
+  avail: number;
 }

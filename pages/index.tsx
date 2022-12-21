@@ -24,6 +24,7 @@ const Home: NextPageWithLayout = () => {
       review: 4,
       rating: 4,
       sold: 100,
+      avail: 50,
     },
   ];
 
