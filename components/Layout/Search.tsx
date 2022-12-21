@@ -31,8 +31,12 @@ const SearchLayout: React.FC<{ children: React.ReactNode }> = ({
       if (endItem > searchResult?.pagination.total) {
         endItem = searchResult?.pagination.total;
       }
-      return `Menampilkan ${startItem} - ${endItem} dari ${searchResult?.pagination.total} hasil`;
+      return `Menampilkan ${startItem} - ${endItem} dari total ${searchResult?.pagination.total} hasil`;
     }
+  };
+  const translateBreadCrumb = (label: string) => {
+    const temp = label.replaceAll("-", " ").replaceAll("and", "&");
+    return temp.charAt(0).toUpperCase() + temp.slice(1);
   };
 
   const initialBreadcrumbs: IBreadCrumb[] = [
@@ -47,21 +51,34 @@ const SearchLayout: React.FC<{ children: React.ReactNode }> = ({
 
   useEffect(() => {
     const path = router.asPath.split("?");
+    const updateBreadcrumb: IBreadCrumb[] = [...initialBreadcrumbs];
 
     if (path.length > 1) {
-      const query = path[1].split("&page=")[0].split("=");
-      if (query[0] === "category") {
-        const category = query[1].replaceAll("-", " ").replaceAll("and", "&");
-        const label = category.charAt(0).toUpperCase() + category.slice(1);
-        setBreadcrumbs((prevBreadcrumb) => [
-          ...prevBreadcrumb,
-          { href: router.asPath, label },
-        ]);
+      const query = path[1]
+        .split("page=")[0]
+        .split("=")
+        .map((item) => item.split("&")[0].split("="))
+        .filter((item) => item[0] !== "category");
+
+      if (query.length > 0) {
+        query.map((item, index) => {
+          updateBreadcrumb.push({
+            href:
+              index === 0
+                ? router.asPath.split("&subcategory=")[0]
+                : router.asPath,
+            label: translateBreadCrumb(item[0]),
+          });
+        });
+        setBreadcrumbs(updateBreadcrumb);
       }
     } else {
       setBreadcrumbs(initialBreadcrumbs);
     }
-  }, [router.asPath.split("&page=")[0]]);
+  }, [
+    router.asPath.split("category=")[1],
+    router.asPath.split("subcategory=")[1],
+  ]);
 
   const [HargaMax, setHargaMax] = useState();
   const [HargaMin, setHargaMin] = useState();
@@ -338,7 +355,9 @@ const SearchLayout: React.FC<{ children: React.ReactNode }> = ({
           <div className="flex flex-col items-center justify-between my-6 md:flex-row md:space-y-0">
             <div>
               {paginationMessage()} untuk{" "}
-              <span className="font-semibold">{breadcrumbs[breadcrumbs.length - 1].label}</span>
+              <span className="font-semibold">
+                {breadcrumbs[breadcrumbs.length - 1].label}
+              </span>
             </div>
             <div className="flex items-center space-x-2">
               <div className="relative text-sm text-primaryText font-[700]">Urutkan:</div>

@@ -61,3 +61,18 @@ export interface IModalProfile {
    */
   email: string;
 }
+
+export interface ICategory {
+  name: string;
+  subCategory: {
+    name: string;
+  }[];
+}
+
+export interface IRespCategory {
+  id: number;
+  category_name: string;
+  subCategory: string;
+  createdAt: string;
+  updatedAt: string;
+}
