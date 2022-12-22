@@ -3,6 +3,7 @@ import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { useClickOutside } from "../../hooks/useClickOutside";
 import { RootState } from "../../lib/store";
 import FilterCategory from "../Filter/Category";
 import SortCategory from "../Sort/Category";
@@ -16,6 +17,10 @@ const SearchLayout: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const BreadCrumb = dynamic(() => import("../breadcrumb/Breadcrumb"));
+  const [show, setShow] = useState<boolean>(false);
+  let domNode = useClickOutside(() => {
+    setShow(false);
+  });
 
   const router = useRouter();
   const searchResult = useSelector(
@@ -107,7 +112,7 @@ const SearchLayout: React.FC<{ children: React.ReactNode }> = ({
   //   }
   // })
   return (
-    <div className="my-8 space-y-8">
+    <div className="my-8 space-y-8" ref={domNode}>
       <BreadCrumb breadcrumbs={breadcrumbs} />
       <div className="flex flex-col space-y-4 lg:space-y-0 lg:space-x-[30px] lg:flex-row px-5 md:px-14">
         <FilterCategory />
@@ -141,7 +146,7 @@ const SearchLayout: React.FC<{ children: React.ReactNode }> = ({
             </div>
             <div className="flex items-center space-x-2">
               <p className="text-sm text-primaryText font-[700]">Urutkan:</p>
-              <SortCategory />
+              <SortCategory show={show} setShow={setShow} />
             </div>
           </div>
           {children}

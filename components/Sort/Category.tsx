@@ -3,9 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { addSorting } from "../../lib/slice/sliceSorting";
 import { RootState } from "../../lib/store";
 
-const SortCategory: React.FC = () => {
+const SortCategory: React.FC<{
+  show: boolean;
+  setShow: (show: boolean) => void;
+}> = ({ show, setShow }) => {
   const initialOption = ["Ulasan", "Harga Terendah", "Harga Tertinggi"];
-  const [show, setShow] = useState<boolean>(false);
+  // const [show, setShow] = useState<boolean>(false);
   const [option, setOption] = useState<string[]>(initialOption);
   const [input, setInput] = useState<string>("");
   const dispatch = useDispatch();
@@ -26,6 +29,8 @@ const SortCategory: React.FC = () => {
   };
 
   const onSelectOption = (select: string) => {
+    console.log(select);
+
     dispatch(addSorting(select));
     setInput(select);
     setShow(false);
@@ -35,7 +40,7 @@ const SortCategory: React.FC = () => {
     dispatch(addSorting(""));
     setInput("");
     setShow(false);
-  }
+  };
 
   return (
     <details className="group relative" open={show}>
@@ -44,7 +49,7 @@ const SortCategory: React.FC = () => {
           className="bg-transparent focus:outline-none"
           type="text"
           placeholder="Urutkan berdasarkan"
-          onClick={() => setShow(!show)}
+          onClick={() => setShow(true)}
           value={input}
           onChange={onChangeInput}
         />
@@ -75,12 +80,14 @@ const SortCategory: React.FC = () => {
           </svg>
         </span>
       </summary>
-      <div className="bg-white border z-20 p-3 rounded-lg shadow-md absolute mt-2 w-full">
+      <div
+        className="bg-white border z-20 p-3 rounded-lg shadow-md absolute mt-2 w-full outer"
+      >
         <div className="space-y-1 text-sm text-primaryText">
           {option.map((item, index) => (
             <p
               key={index}
-              className="cursor-pointer"
+              className="cursor-pointer outer"
               onClick={() => onSelectOption(item)}
             >
               {item}

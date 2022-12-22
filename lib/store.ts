@@ -1,4 +1,5 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import sliceCart from "./slice/sliceCart";
 import sliceCategory from "./slice/sliceCategory";
 import sliceModal from "./slice/sliceModal";
 import sliceProfile from "./slice/sliceProfile";
@@ -13,6 +14,7 @@ const reducer = combineReducers({
   ModalReducer: sliceModal,
   CategoryReducer: sliceCategory,
   SortingReducer: sliceSorting,
+  CartReducer: sliceCart,
 });
 
 export const store = configureStore({ reducer });

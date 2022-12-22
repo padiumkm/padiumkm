@@ -12,9 +12,10 @@ const Home: NextPageWithLayout = () => {
 
   const products: IProductCard[] = [
     {
+      id: "1",
       name: "Ini Produk",
       price: 10000,
-      image: "https://picsum.photos/200",
+      image: ["https://picsum.photos/200"],
       location: "Jakarta",
       produkDalamNegeri: true,
       tkdn: {
