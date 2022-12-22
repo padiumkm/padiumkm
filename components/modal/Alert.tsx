@@ -39,7 +39,7 @@ const Alert: React.FC<IModalAlert> = ({ header, body, icon, button }) => {
             <div className="flex justify-center sm:justify-end space-x-4">
               {button.map((item, index) => (
                 <Button
-                  size="small"
+                  size="medium"
                   primary={item.primary}
                   onClick={item.onClick}
                   key={index}

@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { ReactElement, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -15,7 +16,7 @@ const Search: NextPageWithLayout = () => {
   const history = useRouter();
   const dispatch = useDispatch();
   const sorting = useSelector((state: RootState) => state.SortingReducer.sort);
-  
+
   const [initialProducts, setInitialProducts] = useState<IProductCard[]>([]);
   const [products, setProducts] = useState<IProductCard[]>([]);
   const [pageCount, setPageCount] = useState<number>(0);
@@ -29,14 +30,17 @@ const Search: NextPageWithLayout = () => {
 
   const handlePageClick = ({ selected }: { selected: number }) => {
     setPage(selected + 1);
-    history.replace(`${history.asPath.split("?page=")[0]}?page=${selected + 1}`);
+    history.replace(
+      `${history.asPath.split("?page=")[0]}?page=${selected + 1}`
+    );
   };
 
   useEffect(() => {
     const path = history.asPath.split("?");
-    
-    const category = path.length > 1 ? path[1].split("&page=")[0].split("=") : [];
-    
+
+    const category =
+      path.length > 1 ? path[1].split("&page=")[0].split("=") : [];
+
     const URI = `http://localhost:9002/api/v1/item/${
       category.includes("category") ? "category" : "all"
     }${
@@ -52,16 +56,17 @@ const Search: NextPageWithLayout = () => {
         res.json().then((data) => {
           const products: IProductCard[] = data.data.data.map((item: any) => {
             return {
+              id: item.id,
               name: item.name,
               price: item.price,
-              image: item.image,
+              image: [item.image],
               location: item.location,
               review: 4,
               rating: 4,
               sold: 100,
             };
           });
-          
+
           setProducts(products);
           setInitialProducts(products);
           setPageCount(data.data.pagination.allPage);
@@ -81,8 +86,7 @@ const Search: NextPageWithLayout = () => {
 
     return () => {
       setPage(1);
-    }
-    
+    };
   }, [history.asPath.split("&page=")[0]]);
 
   useEffect(() => {
@@ -105,7 +109,9 @@ const Search: NextPageWithLayout = () => {
       <div className="overflow-hidden">
         <div className="grid grid-cols-2 md:px-[10px] gap-y-4 gap-x-4 py-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
           {products.map((product, index) => (
-            <ProductCard key={index} {...product} />
+            <Link href={`/product/${product.id}`} key={index}>
+              <ProductCard {...product} />
+            </Link>
           ))}
         </div>
       </div>

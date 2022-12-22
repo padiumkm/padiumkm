@@ -12,9 +12,10 @@ const Home: NextPageWithLayout = () => {
 
   const products: IProductCard[] = [
     {
+      id: "1",
       name: "Ini Produk",
       price: 10000,
-      image: "https://picsum.photos/200",
+      image: ["https://picsum.photos/200"],
       location: "Jakarta",
       produkDalamNegeri: true,
       tkdn: {
@@ -24,6 +25,7 @@ const Home: NextPageWithLayout = () => {
       review: 4,
       rating: 4,
       sold: 100,
+      avail: 50,
     },
   ];
 

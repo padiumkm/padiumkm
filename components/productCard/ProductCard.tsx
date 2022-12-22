@@ -16,7 +16,7 @@ const ProductCard: React.FC<IProductCard> = ({
     <div className="flex flex-col min-h-[350px] rounded-lg shadow xl:min-w-[12rem]">
       <div className="min-h-[170px] relative">
         <Image
-          src={image || "https://picsum.photos/200"}
+          src={image[0] || "https://picsum.photos/200"}
           alt={name}
           fill
           className="object-cover rounded-t-lg"

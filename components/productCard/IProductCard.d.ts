@@ -1,5 +1,14 @@
 export interface IProductCard {
   /**
+   * The product id.
+   * @default undefined
+   * @required
+   * @type string
+   * @example
+   * <ProductCard id="123" />
+   */
+  id: string;
+  /**
    * The product name.
    * @default undefined
    * @required
@@ -25,7 +34,7 @@ export interface IProductCard {
    * @example
    * <ProductCard image="https://source.unsplash.com/random" />
    */
-  image: string;
+  image: string[];
   /**
    * The seller location.
    * @default undefined
@@ -80,4 +89,13 @@ export interface IProductCard {
    * <ProductCard sold={10} />
    */
   sold: number;
+  /**
+   * The product available.
+   * @default undefined
+   * @required
+   * @type number
+   * @example
+   * <ProductCard avail={10} />
+   */
+  avail: number;
 }

@@ -7,10 +7,6 @@ import { RootState } from "../../lib/store";
 import { toggleSidebar } from "../../lib/slice/sliceSidebar";
 import { navigations } from "../../data/navigation";
 import Button from "../button/Button";
-import { useEffect, useState } from "react";
-import jwt_decode from "jwt-decode";
-import { getCookie, hasCookie } from "cookies-next";
-import { saveProfile } from "../../lib/slice/sliceProfile";
 import Profile from "../modal/Profile";
 import {
   hideProfile,
@@ -20,27 +16,11 @@ import {
 } from "../../lib/slice/sliceModal";
 import Category from "../modal/Category";
 
-interface Token {
-  username: string;
-  name: string;
-  sub: string;
-  iat: string;
-  exp: string;
-  iss: string;
-}
-
 const Navbar = () => {
   const isOpen = useSelector((state: RootState) => state.SidebarReducer.isOpen);
   const user = useSelector((state: RootState) => state.ProfileReducer.user);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (hasCookie("token")) {
-      const token = getCookie("token")?.toString() || "";
-      const decoded = jwt_decode<Token>(token);
-      dispatch(saveProfile({ name: decoded.name, email: decoded.username }));
-    }
-  }, []);
+  const cart = useSelector((state: RootState) => state.CartReducer.cart);
 
   return (
     <>
@@ -100,20 +80,27 @@ const Navbar = () => {
             </div>
             <SearchBar />
             <div className="sm:pr-5 flex items-center justify-center space-x-5">
-              <div className="relative cursor-pointer">
-                <svg
-                  stroke="currentColor"
-                  fill="currentColor"
-                  strokeWidth="0"
-                  viewBox="0 0 16 16"
-                  className="text-[#808C92] text-2xl"
-                  height="1em"
-                  width="1em"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"></path>
-                </svg>
-              </div>
+              <Link href={`${user.name ? "/cart" : "login"}`}>
+                <div className="relative cursor-pointer">
+                  <svg
+                    stroke="currentColor"
+                    fill="currentColor"
+                    strokeWidth="0"
+                    viewBox="0 0 16 16"
+                    className="text-[#808C92] text-2xl"
+                    height="1em"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"></path>
+                  </svg>
+                  {cart[0].product.item.name !== "" && (
+                    <div className="absolute -right-1.5 -bottom-1.5 bg-red-500 w-4 h-4 rounded-full text-xs flex items-center justify-center text-white font-semibold">
+                      {cart.length}
+                    </div>
+                  )}
+                </div>
+              </Link>
               {user.name ? (
                 <div className="relative cursor-pointer">
                   <svg
@@ -209,7 +196,7 @@ const Navbar = () => {
               >
                 Marketplace
               </Link>
-              <Link href={"https://tenderbumn.id/"} >
+              <Link href={"https://tenderbumn.id/"}>
                 <div className="px-3 py-2 cursor-pointer text-[#8D8D97] text-sm">
                   Tender
                 </div>
