@@ -8,7 +8,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { SlPencil } from "react-icons/Sl";
 import Counter from "../components/detailProduct/Counter";
-import { decreseQuantity, increaseQuantity } from "../lib/slice/sliceCart";
+import { decreseQuantity, increaseQuantity, removeFromCart } from "../lib/slice/sliceCart";
 import { useClickOutside } from "../hooks/useClickOutside";
 import Button from "../components/button/Button";
 import { useEffect } from "react";
@@ -124,7 +124,7 @@ const Cart: NextPageWithLayout = () => {
                     Pilih Semua
                   </h2>
                 </div>
-                <div className="font-bold text-red-600 cursor-pointer">
+                <div className="font-bold text-red-600 cursor-pointer" onClick={() => dispatch(removeFromCart(selectedId))}>
                   Hapus
                 </div>
               </div>

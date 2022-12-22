@@ -51,6 +51,9 @@ export const sliceCart = createSlice({
         const index = state.cart.findIndex((item: ICart) => item.id === id);
         state.cart.splice(index, 1);
       });
+      if (state.cart.length === 0) {
+        state.cart = initialState.cart;
+      }
     },
     increaseQuantity: (state, action) => {
       const hit = state.cart.find((item: ICart) => item.id === action.payload);
