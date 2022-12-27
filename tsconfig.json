@@ -29,7 +29,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts"
-  ],
+, "__test__/components/Button.test.tsx"  ],
   "exclude": [
     "node_modules"
   ]
