@@ -5,8 +5,12 @@ import { render } from "enzyme";
 
 describe('Alert', () => {
     test('render show button', () => {
-        const wrapper = render(<Alert isShow={true}/>);
-        expect(wrapper.text()).to.contain(true);
+        const wrapper = render(<Alert 
+            isShow={true} message={""} 
+            setIsShow={function (): void {
+            throw new Error("Function not implemented.");
+        } }/>);
+        expect(wrapper.text()).toContain(true);
 
     });
 
